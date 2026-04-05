@@ -77,14 +77,9 @@ ul{list-style:none}
 .navbar.scrolled{background:rgba(61,12,23,0.97);backdrop-filter:blur(24px);
   -webkit-backdrop-filter:blur(24px);padding:0.5rem 0;border-bottom:1px solid rgba(201,168,76,0.12)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:2rem}
-.nav-logo{display:flex;align-items:center;gap:0.8rem;flex-shrink:0}
-.nav-logo-icon{width:40px;height:40px;flex-shrink:0;transition:var(--ease)}
-.navbar.scrolled .nav-logo-icon{width:34px;height:34px}
-.nav-logo-text{display:flex;flex-direction:column;line-height:1}
-.nav-logo-text .lm{font-family:var(--display);font-size:1.4rem;font-weight:700;color:var(--white);letter-spacing:0.08em}
-.nav-logo-text .lm span{color:var(--gold)}
-.nav-logo-text .ls{font-size:0.42rem;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;
-  color:rgba(201,168,76,0.6);margin-top:0.15rem}
+.nav-logo{display:flex;align-items:center;flex-shrink:0}
+.nav-logo-img{height:52px;width:auto;transition:height var(--ease)}
+.navbar.scrolled .nav-logo-img{height:40px}
 .nav-menu{display:flex;align-items:center;gap:2.2rem}
 .nav-link{font-size:0.72rem;font-weight:500;letter-spacing:0.13em;text-transform:uppercase;
   color:rgba(255,255,255,0.7);transition:color var(--ease);position:relative}
@@ -119,12 +114,8 @@ ul{list-style:none}
     repeating-linear-gradient(-45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);
   background-size:18px 18px;pointer-events:none}
 .hero-content{position:relative;z-index:2;text-align:center;padding:8rem 2rem 4rem;max-width:1000px}
-.hero-logo-wrap{display:flex;flex-direction:column;align-items:center;gap:0.6rem;margin-bottom:1.5rem;
-  opacity:0;animation:fadeIn 1s ease .2s forwards}
-.hero-logo-svg{width:80px;height:80px;filter:drop-shadow(0 4px 20px rgba(201,168,76,0.3))}
-.hero-logo-name{font-family:var(--display);font-size:2.5rem;font-weight:700;color:var(--white);letter-spacing:0.1em}
-.hero-logo-name span{color:var(--gold)}
-.hero-logo-sub{font-size:0.6rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:rgba(201,168,76,0.7)}
+.hero-logo-wrap{margin-bottom:1.5rem;opacity:0;animation:fadeIn 1s ease .2s forwards;text-align:center}
+.hero-logo-img{height:100px;width:auto;margin:0 auto;filter:drop-shadow(0 4px 20px rgba(201,168,76,0.3))}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:1rem;margin-bottom:1.5rem;
   opacity:0;animation:fadeUp .9s ease .4s forwards}
 .hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:3rem;height:1px;
@@ -378,8 +369,7 @@ ul{list-style:none}
   .container{padding:0 1.2rem}
   .hero-content{padding:7rem 1.2rem 4rem}
   .hero-title{font-size:clamp(1.6rem,7vw,2.4rem)}
-  .hero-logo-svg{width:60px;height:60px}
-  .hero-logo-name{font-size:1.8rem}
+  .hero-logo-img{height:70px}
   .hero-subtitle{font-size:1rem;margin-bottom:1.5rem}
   .hero-tagline{font-size:0.6rem}
   .hero-eyebrow span{font-size:0.5rem;letter-spacing:0.15em}
@@ -401,9 +391,7 @@ ul{list-style:none}
   .footer-grid{grid-template-columns:1fr;gap:2rem}
   .footer-bottom{flex-direction:column;text-align:center}
   .about,.fullpkg,.quality,.vision,.projects,.contact,.offices{padding:3.5rem 0}
-  .nav-logo-icon{width:32px;height:32px}
-  .nav-logo-text .lm{font-size:1.1rem}
-  .nav-logo-text .ls{display:none}
+  .nav-logo-img{height:38px}
 }
 @media(max-width:540px){
   .projects-grid,.values-grid,.offices-grid{grid-template-columns:1fr}
@@ -411,15 +399,14 @@ ul{list-style:none}
   .hero-title{font-size:1.5rem}
   .hero-eyebrow::before,.hero-eyebrow::after{width:1.5rem}
   .about-features{grid-template-columns:1fr}
-  .nav-logo-icon{width:28px;height:28px}
-  .hero-logo-svg{width:50px;height:50px}
-  .hero-logo-name{font-size:1.5rem}
+  .nav-logo-img{height:32px}
+  .hero-logo-img{height:55px}
 }
 @media(max-width:380px){
   .container{padding:0 1rem}
   .hero-title{font-size:1.3rem}
   .stat-number{font-size:1.2rem}
-  .nav-logo-text .lm{font-size:0.95rem}
+  .nav-logo-img{height:28px}
 }
 </style>
 </head>
@@ -452,17 +439,7 @@ ul{list-style:none}
   <div class="container">
     <div class="nav-inner">
       <a href="#" class="nav-logo">
-        <svg class="nav-logo-icon" viewBox="0 0 100 80" fill="none">
-          <path d="M50 5 C46 20, 42 40, 50 65 C58 40, 54 20, 50 5Z" fill="#C9A84C" stroke="#C9A84C" stroke-width="1"/>
-          <path d="M50 65 C40 50, 30 35, 32 18 C38 30, 44 45, 50 65Z" fill="none" stroke="#C9A84C" stroke-width="1.8"/>
-          <path d="M50 65 C60 50, 70 35, 68 18 C62 30, 56 45, 50 65Z" fill="none" stroke="#C9A84C" stroke-width="1.8"/>
-          <path d="M50 65 C36 52, 18 40, 14 24 C24 34, 38 48, 50 65Z" fill="none" stroke="#C9A84C" stroke-width="1.8"/>
-          <path d="M50 65 C64 52, 82 40, 86 24 C76 34, 62 48, 50 65Z" fill="none" stroke="#C9A84C" stroke-width="1.8"/>
-        </svg>
-        <div class="nav-logo-text">
-          <div class="lm">JAR<span>A</span></div>
-          <div class="ls">Apparel Sourcing Ltd</div>
-        </div>
+        <img src="logo.png" alt="JARA Apparel Sourcing Ltd" class="nav-logo-img">
       </a>
       <nav class="nav-menu">
         <a href="#about" class="nav-link">About Us</a>
@@ -492,15 +469,7 @@ ul{list-style:none}
 
   <div class="hero-content">
     <div class="hero-logo-wrap">
-      <svg class="hero-logo-svg" viewBox="0 0 100 80" fill="none">
-        <path d="M50 5 C46 20, 42 40, 50 65 C58 40, 54 20, 50 5Z" fill="#C9A84C" stroke="#C9A84C" stroke-width="1"/>
-        <path d="M50 65 C40 50, 30 35, 32 18 C38 30, 44 45, 50 65Z" fill="none" stroke="#C9A84C" stroke-width="2"/>
-        <path d="M50 65 C60 50, 70 35, 68 18 C62 30, 56 45, 50 65Z" fill="none" stroke="#C9A84C" stroke-width="2"/>
-        <path d="M50 65 C36 52, 18 40, 14 24 C24 34, 38 48, 50 65Z" fill="none" stroke="#C9A84C" stroke-width="2"/>
-        <path d="M50 65 C64 52, 82 40, 86 24 C76 34, 62 48, 50 65Z" fill="none" stroke="#C9A84C" stroke-width="2"/>
-      </svg>
-      <div class="hero-logo-name">JAR<span>A</span></div>
-      <div class="hero-logo-sub">Apparel Sourcing Ltd</div>
+      <img src="logo.png" alt="JARA Apparel Sourcing Ltd" class="hero-logo-img">
     </div>
     <div class="hero-eyebrow"><span>Clothing &amp; Accessories Manufacturers Network</span></div>
     <h1 class="hero-title">Your Trusted Partner in<br><em>Global Apparel Sourcing</em></h1>
@@ -825,19 +794,7 @@ ul{list-style:none}
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="footer-logo">
-          <svg class="footer-logo-icon" viewBox="0 0 100 80" fill="none">
-            <path d="M50 5 C46 20, 42 40, 50 65 C58 40, 54 20, 50 5Z" fill="#C9A84C" stroke="#C9A84C" stroke-width="1"/>
-            <path d="M50 65 C40 50, 30 35, 32 18 C38 30, 44 45, 50 65Z" fill="none" stroke="#C9A84C" stroke-width="1.8"/>
-            <path d="M50 65 C60 50, 70 35, 68 18 C62 30, 56 45, 50 65Z" fill="none" stroke="#C9A84C" stroke-width="1.8"/>
-            <path d="M50 65 C36 52, 18 40, 14 24 C24 34, 38 48, 50 65Z" fill="none" stroke="#C9A84C" stroke-width="1.8"/>
-            <path d="M50 65 C64 52, 82 40, 86 24 C76 34, 62 48, 50 65Z" fill="none" stroke="#C9A84C" stroke-width="1.8"/>
-          </svg>
-          <div class="footer-logo-text">
-            <div class="lm">JAR<span>A</span></div>
-            <div class="ls">Apparel Sourcing Ltd</div>
-          </div>
-        </div>
+        <img src="logo.png" alt="JARA" style="height:55px;width:auto;margin-bottom:0.5rem;filter:brightness(1.2)">
         <div class="gold-div"></div>
         <p>Your trusted clothing &amp; accessories manufacturers network. Global Reach. Exceptional Sourcing. Full package garment solutions from concept to delivery.</p>
         <div class="social-links">

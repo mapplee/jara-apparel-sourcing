@@ -62,14 +62,9 @@ ul{list-style:none}
   box-shadow:0 1px 0 var(--border)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
 .nav-logo{display:flex;align-items:center;gap:0.6rem}
-.nav-logo-icon{width:36px;height:36px}
-.nav-logo-text{display:flex;flex-direction:column;line-height:1}
-.nav-logo-text .nm{font-family:var(--serif);font-size:1.25rem;font-weight:700;color:var(--maroon);letter-spacing:0.04em}
-.nav-logo-text .ns{font-size:0.38rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-light);margin-top:0.12rem}
-.nav:not(.scrolled) .nav-logo-text .nm{color:var(--white)}
-.nav:not(.scrolled) .nav-logo-text .ns{color:rgba(255,255,255,0.5)}
-.nav:not(.scrolled) .nav-logo-icon path{stroke:var(--white) !important;fill:none !important}
-.nav:not(.scrolled) .nav-logo-icon path:first-child{fill:var(--white) !important;stroke:var(--white) !important}
+.nav-logo-img{height:50px;width:auto;transition:height var(--ease)}
+.navbar.scrolled .nav-logo-img,.nav.scrolled .nav-logo-img{height:40px}
+.nav:not(.scrolled) .nav-logo-img{filter:brightness(0) invert(1)}
 .nav-links{display:flex;align-items:center;gap:2rem}
 .nav-link{font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;
   color:var(--text-light);transition:color var(--ease)}
@@ -269,12 +264,7 @@ ul{list-style:none}
 .footer{background:var(--maroon-deep);padding:4rem 0 1.5rem}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:3rem;margin-bottom:3rem}
 .footer-brand .f-logo{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.8rem}
-.footer-brand .f-logo-icon{width:30px;height:30px}
-.footer-brand .f-logo-icon path,.footer-brand .f-logo-icon circle,.footer-brand .f-logo-icon ellipse,
-.footer-brand .f-logo-icon line,.footer-brand .f-logo-icon polyline{stroke:var(--gold)!important}
-.footer-brand .f-logo-icon path[opacity]{fill:var(--gold)!important;stroke:none!important}
-.footer-brand .f-logo-name{font-family:var(--serif);font-size:1.2rem;font-weight:700;color:var(--white);letter-spacing:0.04em}
-.footer-brand .f-logo-name span{color:var(--gold)}
+.footer-brand .f-logo-img{height:50px;width:auto;filter:brightness(1.2)}
 .footer-brand .f-div{width:40px;height:1px;background:rgba(201,168,76,0.3);margin-bottom:0.8rem}
 .footer-brand > p{font-size:0.78rem;line-height:1.7;color:rgba(255,255,255,0.3);margin-bottom:1rem}
 .socials{display:flex;gap:0.5rem}
@@ -353,9 +343,7 @@ ul{list-style:none}
   .off-grid{grid-template-columns:1fr}
   .hero-title{font-size:1.4rem}
   .hero{height:80vh}
-  .nav-logo-icon{width:28px;height:28px}
-  .nav-logo-text .nm{font-size:1rem}
-  .nav-logo-text .ns{display:none}
+  .nav-logo-img{height:32px}
   .brand-img{height:220px}
   .quality-banner{height:240px}
 }
@@ -389,22 +377,7 @@ ul{list-style:none}
   <div class="container">
     <div class="nav-inner">
       <a href="#" class="nav-logo">
-        <svg class="nav-logo-icon" viewBox="0 0 100 80" fill="none">
-          <!-- Lotus: center teardrop -->
-          <path d="M50 5 C46 20, 42 40, 50 65 C58 40, 54 20, 50 5Z" fill="#7A1930" stroke="#7A1930" stroke-width="1"/>
-          <!-- Inner left petal -->
-          <path d="M50 65 C40 50, 30 35, 32 18 C38 30, 44 45, 50 65Z" fill="none" stroke="#7A1930" stroke-width="1.8"/>
-          <!-- Inner right petal -->
-          <path d="M50 65 C60 50, 70 35, 68 18 C62 30, 56 45, 50 65Z" fill="none" stroke="#7A1930" stroke-width="1.8"/>
-          <!-- Outer left petal -->
-          <path d="M50 65 C36 52, 18 40, 14 24 C24 34, 38 48, 50 65Z" fill="none" stroke="#7A1930" stroke-width="1.8"/>
-          <!-- Outer right petal -->
-          <path d="M50 65 C64 52, 82 40, 86 24 C76 34, 62 48, 50 65Z" fill="none" stroke="#7A1930" stroke-width="1.8"/>
-        </svg>
-        <div class="nav-logo-text">
-          <div class="nm">JARA</div>
-          <div class="ns">Apparel Sourcing Ltd</div>
-        </div>
+        <img src="logo.png" alt="JARA Apparel Sourcing Ltd" class="nav-logo-img">
       </a>
       <nav class="nav-links">
         <a href="#about" class="nav-link">About Us</a>
@@ -692,16 +665,7 @@ ul{list-style:none}
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="f-logo">
-          <svg class="f-logo-icon" viewBox="0 0 100 80" fill="none">
-            <path d="M50 5 C46 20, 42 40, 50 65 C58 40, 54 20, 50 5Z" fill="#C9A84C" stroke="#C9A84C" stroke-width="1"/>
-            <path d="M50 65 C40 50, 30 35, 32 18 C38 30, 44 45, 50 65Z" fill="none" stroke="#C9A84C" stroke-width="1.8"/>
-            <path d="M50 65 C60 50, 70 35, 68 18 C62 30, 56 45, 50 65Z" fill="none" stroke="#C9A84C" stroke-width="1.8"/>
-            <path d="M50 65 C36 52, 18 40, 14 24 C24 34, 38 48, 50 65Z" fill="none" stroke="#C9A84C" stroke-width="1.8"/>
-            <path d="M50 65 C64 52, 82 40, 86 24 C76 34, 62 48, 50 65Z" fill="none" stroke="#C9A84C" stroke-width="1.8"/>
-          </svg>
-          <div class="f-logo-name">JAR<span>A</span></div>
-        </div>
+        <img src="logo.png" alt="JARA Apparel Sourcing Ltd" class="f-logo-img">
         <div class="f-div"></div>
         <p>Your trusted clothing &amp; accessories manufacturers network. Global Reach. Exceptional Sourcing.</p>
         <div class="socials">
