@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JARA Apparel Sourcing BD — Clothing &amp; Accessories Manufacturers Network</title>
+<meta name="description" content="JARA Apparel Sourcing BD — Full package garment buying house in Bangladesh. End-to-end sourcing, sampling, manufacturing & delivery for global fashion brands.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,700&family=Outfit:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   VARIABLES
+   ============================================= */
+:root {
+  --navy: #0D1B2A;
+  --navy-mid: #132236;
+  --navy-light: #1B3048;
+  --gold: #C9A84C;
+  --gold-light: #E2CC80;
+  --gold-dark: #A8872A;
+  --cream: #F8F4EE;
+  --cream-dark: #EDE7DC;
+  --white: #FFFFFF;
+  --text: #1a1a2e;
+  --text-muted: #6b7280;
+  --green-accent: #4ade80;
+
+  --display: 'Playfair Display', Georgia, serif;
+  --sub: 'Cormorant Garamond', Georgia, serif;
+  --body: 'Outfit', system-ui, sans-serif;
+
+  --ease: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-slow: 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* =============================================
+   RESET
+   ============================================= */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--body);color:var(--text);background:var(--navy);overflow-x:hidden;cursor:none}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit;cursor:none}
+button{cursor:none;border:none;outline:none;font-family:var(--body)}
+ul{list-style:none}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--navy)}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px}
+
+/* =============================================
+   CUSTOM CURSOR — SEWING NEEDLE
+   ============================================= */
+.cursor-needle {
+  position: fixed;
+  width: 28px;
+  height: 28px;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  transition: transform 0.08s linear;
+}
+.cursor-needle svg {
+  width: 100%;
+  height: 100%;
+}
+.cursor-dot {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+}
+.cursor-dot.hover {
+  width: 40px;
+  height: 40px;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid var(--gold);
+}
+
+/* Thread trail canvas */
+#threadCanvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99997;
+}
+
+/* Cotton particle canvas */
+#cottonCanvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99996;
+}
+
+/* =============================================
+   UTILITY
+   ============================================= */
+.container{max-width:1280px;margin:0 auto;padding:0 2rem}
+.section-tag{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  font-family:var(--body);font-size:0.68rem;font-weight:600;
+  letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:1rem;
+}
+.section-tag::before{content:'';display:block;width:2rem;height:1px;background:var(--gold)}
+
+.reveal{opacity:0;transform:translateY(45px);transition:opacity 0.9s ease, transform 0.9s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
+.rev-l{opacity:0;transform:translateX(-45px);transition:opacity 0.9s ease, transform 0.9s ease}
+.rev-l.vis{opacity:1;transform:translateX(0)}
+.rev-r{opacity:0;transform:translateX(45px);transition:opacity 0.9s ease, transform 0.9s ease}
+.rev-r.vis{opacity:1;transform:translateX(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+.d4{transition-delay:.4s}.d5{transition-delay:.5s}.d6{transition-delay:.6s}
+
+/* grain overlay */
+.grain{position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:0.03;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* =============================================
+   NAVBAR
+   ============================================= */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.3rem 0;transition:var(--ease)}
+.navbar.scrolled{background:rgba(13,27,42,0.97);backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);padding:0.7rem 0;border-bottom:1px solid rgba(201,168,76,0.12)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.nav-logo{display:flex;flex-direction:column;line-height:1;flex-shrink:0}
+.nav-logo .lm{font-family:var(--display);font-size:1.9rem;font-weight:700;color:var(--white);letter-spacing:0.06em}
+.nav-logo .lm span{color:var(--gold)}
+.nav-logo .ls{font-family:var(--body);font-size:0.5rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(201,168,76,0.75);margin-top:0.15rem}
+.nav-menu{display:flex;align-items:center;gap:2.2rem}
+.nav-link{font-size:0.73rem;font-weight:500;letter-spacing:0.13em;text-transform:uppercase;
+  color:rgba(255,255,255,0.7);transition:color var(--ease);position:relative}
+.nav-link::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width var(--ease)}
+.nav-link:hover{color:var(--gold)}
+.nav-link:hover::after{width:100%}
+.nav-cta{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:0.55rem 1.3rem;
+  font-size:0.68rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;
+  transition:var(--ease);white-space:nowrap}
+.nav-cta:hover{background:var(--gold);color:var(--navy)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:transparent;padding:4px}
+.hamburger span{display:block;width:24px;height:1.5px;background:var(--gold);transition:var(--ease)}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4.5px,4.5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4.5px,-4.5px)}
+
+/* Mobile nav */
+.mobile-nav{display:none;position:fixed;inset:0;background:rgba(13,27,42,0.98);z-index:999;
+  flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;
+  opacity:0;pointer-events:none;transition:opacity var(--ease)}
+.mobile-nav.open{opacity:1;pointer-events:all}
+.mobile-nav a{font-family:var(--display);font-size:2rem;font-weight:600;color:rgba(255,255,255,0.7);transition:color var(--ease)}
+.mobile-nav a:hover{color:var(--gold)}
+
+/* =============================================
+   HERO — FULL SCREEN SLIDER
+   ============================================= */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-slide{
+  position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;
+  background-size:cover;background-position:center;
+}
+.hero-slide.active{opacity:1}
+.hero-slide::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(13,27,42,0.88) 0%,rgba(13,27,42,0.65) 50%,rgba(13,27,42,0.85) 100%)}
+
+/* Weave pattern overlay */
+.hero-weave{position:absolute;inset:0;z-index:1;opacity:0.04;
+  background-image:
+    repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%),
+    repeating-linear-gradient(-45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);
+  background-size:18px 18px;
+  pointer-events:none;
+}
+
+.hero-content{position:relative;z-index:2;text-align:center;padding:8rem 2rem 4rem;max-width:1000px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:1rem;margin-bottom:2rem;
+  opacity:0;animation:fadeUp .9s ease .3s forwards}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:3rem;height:1px;background:linear-gradient(to right,transparent,var(--gold))}
+.hero-eyebrow::after{background:linear-gradient(to left,transparent,var(--gold))}
+.hero-eyebrow span{font-size:0.65rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold)}
+
+.hero-title{font-family:var(--display);font-size:clamp(2.4rem,5.5vw,4.8rem);font-weight:700;
+  line-height:1.1;color:var(--white);margin-bottom:1.2rem;
+  opacity:0;animation:fadeUp 1s ease .6s forwards}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-subtitle{font-family:var(--sub);font-size:clamp(1rem,1.8vw,1.4rem);font-weight:300;
+  font-style:italic;color:rgba(248,244,238,0.65);margin-bottom:2.5rem;
+  opacity:0;animation:fadeUp 1s ease .9s forwards}
+
+.hero-actions{display:flex;align-items:center;justify-content:center;gap:1.2rem;flex-wrap:wrap;
+  opacity:0;animation:fadeUp 1s ease 1.1s forwards}
+
+/* Slider dots */
+.hero-dots{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);z-index:5;
+  display:flex;gap:0.6rem;opacity:0;animation:fadeIn 1s ease 1.5s forwards}
+.hero-dot{width:10px;height:10px;border:1px solid rgba(201,168,76,0.5);background:transparent;
+  cursor:none;transition:var(--ease);border-radius:0}
+.hero-dot.active{background:var(--gold);border-color:var(--gold);transform:rotate(45deg)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* =============================================
+   BTN
+   ============================================= */
+.btn-primary{display:inline-flex;align-items:center;gap:0.6rem;background:var(--gold);
+  color:var(--navy);padding:0.9rem 2.2rem;font-size:0.76rem;font-weight:700;
+  letter-spacing:0.15em;text-transform:uppercase;transition:var(--ease);position:relative;overflow:hidden}
+.btn-primary::before{content:'';position:absolute;inset:0;background:var(--gold-light);
+  transform:translateX(-100%);transition:transform var(--ease)}
+.btn-primary:hover::before{transform:translateX(0)}
+.btn-primary span{position:relative;z-index:1}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,168,76,0.3)}
+.btn-secondary{display:inline-flex;align-items:center;gap:0.6rem;background:transparent;
+  color:var(--white);padding:0.9rem 2.2rem;font-size:0.76rem;font-weight:500;
+  letter-spacing:0.15em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.25);transition:var(--ease)}
+.btn-secondary:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+
+/* =============================================
+   STATS BAR
+   ============================================= */
+.stats-bar{background:var(--gold);position:relative;z-index:3}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat-item{padding:2rem 1.5rem;text-align:center;border-right:1px solid rgba(13,27,42,0.12)}
+.stat-item:last-child{border-right:none}
+.stat-number{font-family:var(--display);font-size:clamp(1.7rem,3vw,2.6rem);font-weight:800;color:var(--navy);line-height:1;margin-bottom:0.35rem}
+.stat-label{font-size:0.7rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(13,27,42,0.6)}
+
+/* =============================================
+   ONE-STEP SOLUTION / ABOUT
+   ============================================= */
+.about{background:var(--cream);padding:7rem 0;position:relative;overflow:hidden}
+.about::before{content:'JARA';position:absolute;right:-1.5rem;top:50%;transform:translateY(-50%);
+  font-family:var(--display);font-size:17rem;font-weight:900;color:rgba(13,27,42,0.03);pointer-events:none;letter-spacing:-0.05em}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-image-wrap{position:relative}
+.about-image{width:100%;aspect-ratio:4/5;position:relative;overflow:hidden;
+  background:#1a2f47;box-shadow:0 25px 50px rgba(13,27,42,0.25)}
+.about-image img{width:100%;height:100%;object-fit:cover}
+.about-image::before{content:'';position:absolute;bottom:-1.5rem;left:-1.5rem;width:55%;height:55%;
+  border:2px solid var(--gold);opacity:0.3;z-index:-1}
+.about-badge{position:absolute;bottom:-1.2rem;right:-1.2rem;width:110px;height:110px;background:var(--gold);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:2}
+.about-badge .bn{font-family:var(--display);font-size:1.8rem;font-weight:800;color:var(--navy);line-height:1}
+.about-badge .bt{font-size:0.55rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  color:rgba(13,27,42,0.7);line-height:1.3;margin-top:0.15rem}
+.about-content h2{font-family:var(--display);font-size:clamp(1.8rem,3.2vw,2.8rem);font-weight:700;
+  color:var(--navy);line-height:1.2;margin-bottom:1.2rem}
+.about-content h2 em{font-style:italic;color:var(--gold-dark)}
+.about-content > p{font-size:0.95rem;line-height:1.85;color:#4a5568;margin-bottom:0.8rem}
+.about-features{margin-top:2rem;display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
+.about-feat{display:flex;align-items:flex-start;gap:0.7rem}
+.feat-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;flex-shrink:0;margin-top:0.45rem}
+.about-feat span{font-size:0.82rem;font-weight:500;color:var(--navy);line-height:1.4}
+
+/* =============================================
+   FULL PACKAGE SECTION
+   ============================================= */
+.fullpkg{background:var(--white);padding:7rem 0;position:relative}
+.fullpkg .section-header{text-align:center;margin-bottom:4rem}
+.fullpkg .section-title{font-family:var(--display);font-size:clamp(1.7rem,3vw,2.6rem);font-weight:700;
+  color:var(--navy);line-height:1.2;margin-bottom:1rem}
+.fullpkg .section-title em{font-style:italic;color:var(--gold-dark)}
+.fullpkg .section-desc{max-width:560px;margin:0 auto;font-size:0.95rem;line-height:1.85;color:var(--text-muted)}
+.fullpkg .section-tag{color:var(--gold-dark)}
+.fullpkg .section-tag::before{background:var(--gold-dark)}
+
+/* End-to-end grid */
+.e2e-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.e2e-card{background:var(--cream);padding:2.5rem 2rem;position:relative;border:1px solid rgba(13,27,42,0.06);
+  transition:var(--ease)}
+.e2e-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(13,27,42,0.08);
+  border-color:rgba(201,168,76,0.2)}
+.e2e-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:var(--gold);transform:scaleX(0);transition:transform var(--ease);transform-origin:left}
+.e2e-card:hover::before{transform:scaleX(1)}
+.e2e-num{font-family:var(--display);font-size:4rem;font-weight:900;color:rgba(201,168,76,0.08);
+  line-height:1;position:absolute;top:0.8rem;right:1.2rem}
+.e2e-card:hover .e2e-num{color:rgba(201,168,76,0.15)}
+.e2e-icon{font-size:2rem;margin-bottom:1rem;display:block}
+.e2e-card h3{font-family:var(--display);font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:1rem}
+.e2e-list{display:flex;flex-direction:column;gap:0.5rem}
+.e2e-list li{font-size:0.82rem;color:#4a5568;display:flex;align-items:center;gap:0.5rem;line-height:1.4}
+.e2e-list li::before{content:'';width:12px;height:1px;background:var(--gold);flex-shrink:0}
+
+/* =============================================
+   QUALITY SECTION
+   ============================================= */
+.quality{background:var(--navy);padding:7rem 0;position:relative;overflow:hidden}
+.quality::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 50% 60% at 75% 25%,rgba(201,168,76,0.04) 0%,transparent 70%);pointer-events:none}
+.quality-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.quality-content .section-title{color:var(--white)}
+.quality-content p{font-size:0.95rem;line-height:1.85;color:rgba(255,255,255,0.55);margin-bottom:1rem}
+.quality-image{width:100%;aspect-ratio:3/2;background:var(--navy-light);overflow:hidden;position:relative}
+.quality-image img{width:100%;height:100%;object-fit:cover}
+.quality-image::after{content:'';position:absolute;inset:0;border:1px solid rgba(201,168,76,0.15)}
+
+/* =============================================
+   VISION & VALUES
+   ============================================= */
+.vision{background:var(--cream);padding:7rem 0}
+.vision-header{text-align:center;margin-bottom:4rem}
+.vision-header .section-title{color:var(--navy)}
+.vision-header .section-tag{color:var(--gold-dark)}.vision-header .section-tag::before{background:var(--gold-dark)}
+.vision-statement{text-align:center;max-width:700px;margin:0 auto 4rem;
+  font-family:var(--sub);font-size:1.5rem;font-weight:300;font-style:italic;
+  color:var(--navy);line-height:1.6}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.value-card{background:var(--white);border:1px solid rgba(13,27,42,0.06);padding:2.2rem 1.8rem;
+  text-align:center;transition:var(--ease);position:relative;overflow:hidden}
+.value-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--gold);transform:scaleX(0);transition:transform var(--ease);transform-origin:center}
+.value-card:hover{transform:translateY(-4px);box-shadow:0 15px 35px rgba(13,27,42,0.07)}
+.value-card:hover::after{transform:scaleX(1)}
+.value-icon{font-size:2.2rem;margin-bottom:1rem;display:block}
+.value-card h3{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--navy);
+  margin-bottom:0.6rem;text-transform:capitalize}
+.value-card p{font-size:0.82rem;line-height:1.7;color:var(--text-muted)}
+
+/* =============================================
+   PRODUCTS / PROJECTS
+   ============================================= */
+.projects{background:var(--navy);padding:7rem 0;position:relative}
+.projects .section-header{text-align:center;margin-bottom:4rem}
+.projects .section-title{color:var(--white)}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.project-card{position:relative;overflow:hidden}
+.project-inner{aspect-ratio:4/3;position:relative;overflow:hidden;background:var(--navy-light)}
+.project-inner img{width:100%;height:100%;object-fit:cover;transition:transform var(--ease-slow)}
+.project-card:hover .project-inner img{transform:scale(1.08)}
+.project-overlay{position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(13,27,42,0.92) 0%,rgba(13,27,42,0.3) 50%,transparent 100%);
+  transition:var(--ease)}
+.project-card:hover .project-overlay{
+  background:linear-gradient(to top,rgba(13,27,42,0.95) 0%,rgba(13,27,42,0.5) 60%,rgba(13,27,42,0.15) 100%)}
+.project-content{position:absolute;bottom:0;left:0;right:0;padding:1.5rem}
+.project-cat{font-size:0.6rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem}
+.project-name{font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--white)}
+.project-arrow{position:absolute;top:1.2rem;right:1.2rem;width:34px;height:34px;
+  border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;
+  color:var(--gold);font-size:0.8rem;opacity:0;transform:translateY(-6px);transition:var(--ease)}
+.project-card:hover .project-arrow{opacity:1;transform:translateY(0)}
+.explore-all{text-align:center;margin-top:3rem}
+
+/* =============================================
+   CONTACT
+   ============================================= */
+.contact{background:var(--cream);padding:7rem 0;position:relative;overflow:hidden}
+.contact::before{content:'';position:absolute;top:-180px;right:-180px;width:500px;height:500px;
+  background:radial-gradient(circle,rgba(201,168,76,0.06) 0%,transparent 70%);pointer-events:none}
+.contact .section-title{color:var(--navy)}
+.contact .section-tag{color:var(--gold-dark)}.contact .section-tag::before{background:var(--gold-dark)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:5rem;align-items:start}
+.contact-info > p{font-size:0.95rem;line-height:1.85;color:var(--text-muted);margin-bottom:2rem}
+.contact-details{display:flex;flex-direction:column;gap:1.5rem}
+.contact-item{display:flex;align-items:flex-start;gap:1rem}
+.contact-icon{width:42px;height:42px;background:var(--navy);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1rem;flex-shrink:0}
+.ci-text h4{font-size:0.68rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--navy);margin-bottom:0.2rem}
+.ci-text p{font-size:0.85rem;color:var(--text-muted);line-height:1.5}
+.contact-form{background:var(--navy);padding:3rem;box-shadow:0 25px 50px rgba(13,27,42,0.15)}
+.form-title{font-family:var(--display);font-size:1.3rem;font-weight:600;color:var(--white);margin-bottom:2rem}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-bottom:1.1rem}
+.form-group{display:flex;flex-direction:column;gap:0.4rem}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:0.65rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4)}
+.form-group input,.form-group select,.form-group textarea{
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
+  color:var(--white);padding:0.8rem 1rem;font-family:var(--body);font-size:0.85rem;outline:none;
+  transition:border-color var(--ease);cursor:none;width:100%}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(255,255,255,0.22)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:rgba(201,168,76,0.5)}
+.form-group select option{background:var(--navy-mid);color:var(--white)}
+.form-group textarea{resize:vertical;min-height:90px}
+.btn-submit{width:100%;background:var(--gold);color:var(--navy);padding:0.95rem 2rem;
+  font-family:var(--body);font-size:0.78rem;font-weight:700;letter-spacing:0.18em;
+  text-transform:uppercase;border:none;cursor:none;transition:var(--ease);
+  margin-top:0.5rem;position:relative;overflow:hidden}
+.btn-submit::before{content:'';position:absolute;inset:0;background:var(--gold-light);
+  transform:scaleX(0);transform-origin:left;transition:transform var(--ease)}
+.btn-submit:hover::before{transform:scaleX(1)}
+.btn-submit span{position:relative;z-index:1}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(201,168,76,0.3)}
+
+/* =============================================
+   OFFICES
+   ============================================= */
+.offices{background:var(--navy);padding:5rem 0}
+.offices .section-header{text-align:center;margin-bottom:3rem}
+.offices .section-title{color:var(--white)}
+.offices-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:rgba(201,168,76,0.08)}
+.office-card{background:var(--navy-mid);padding:2.2rem 1.8rem;text-align:center;transition:var(--ease)}
+.office-card:hover{background:var(--navy-light)}
+.office-flag{font-size:2rem;margin-bottom:0.8rem;display:block}
+.office-card h3{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--white);margin-bottom:0.5rem}
+.office-card p{font-size:0.78rem;color:rgba(255,255,255,0.4);line-height:1.6}
+.office-card a{color:var(--gold);transition:color var(--ease)}
+.office-card a:hover{color:var(--gold-light)}
+
+/* =============================================
+   FOOTER
+   ============================================= */
+.footer{background:#060e18;padding:4rem 0 1.5rem;border-top:1px solid rgba(201,168,76,0.08)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:3rem;margin-bottom:3rem}
+.footer-brand .lm{font-family:var(--display);font-size:1.8rem;font-weight:700;color:var(--white);letter-spacing:0.05em}
+.footer-brand .lm span{color:var(--gold)}
+.footer-brand .ls{font-size:0.5rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(201,168,76,0.55);margin-bottom:1rem}
+.footer-brand p{font-size:0.82rem;line-height:1.8;color:rgba(255,255,255,0.35);margin-bottom:1.2rem}
+.gold-div{width:50px;height:2px;background:linear-gradient(to right,var(--gold),transparent);margin-bottom:1rem}
+.social-links{display:flex;gap:0.7rem}
+.social-link{width:34px;height:34px;border:1px solid rgba(201,168,76,0.18);display:flex;
+  align-items:center;justify-content:center;color:rgba(255,255,255,0.4);font-size:0.8rem;transition:var(--ease)}
+.social-link:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,0.06)}
+.footer-col h4{font-size:0.68rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.3rem}
+.footer-links{display:flex;flex-direction:column;gap:0.6rem}
+.footer-links a{font-size:0.82rem;color:rgba(255,255,255,0.35);transition:color var(--ease);display:flex;align-items:center;gap:0.4rem}
+.footer-links a::before{content:'—';font-size:0.55rem;color:rgba(201,168,76,0.25)}
+.footer-links a:hover{color:var(--gold)}
+.fc-item{display:flex;gap:0.7rem;margin-bottom:0.8rem}
+.fc-item .fci{color:var(--gold);font-size:0.8rem;flex-shrink:0;margin-top:0.1rem}
+.fc-item p{font-size:0.78rem;line-height:1.5;color:rgba(255,255,255,0.35)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.05);padding-top:1.5rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-copyright{font-size:0.75rem;color:rgba(255,255,255,0.2)}
+.footer-legal{display:flex;gap:1.8rem}
+.footer-legal a{font-size:0.75rem;color:rgba(255,255,255,0.2);transition:color var(--ease)}
+.footer-legal a:hover{color:var(--gold)}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media(max-width:1100px){
+  .e2e-grid{grid-template-columns:repeat(2,1fr)}
+  .offices-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:900px){
+  .about-grid,.quality-grid,.contact-grid{grid-template-columns:1fr}
+  .about-image-wrap{max-width:400px;margin:0 auto}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .values-grid{grid-template-columns:1fr 1fr}
+  .projects-grid{grid-template-columns:1fr 1fr}
+  .about,.fullpkg,.quality,.vision,.projects,.contact,.offices{padding:5rem 0}
+}
+@media(max-width:768px){
+  body{cursor:auto}
+  .cursor-needle,.cursor-dot,#threadCanvas,#cottonCanvas{display:none!important}
+  .nav-menu,.nav-cta{display:none}
+  .hamburger{display:flex}
+  .mobile-nav{display:flex}
+  .container{padding:0 1.2rem}
+  .hero-content{padding:7rem 1.2rem 4rem}
+  .hero-title{font-size:clamp(1.7rem,7vw,2.5rem)}
+  .hero-subtitle{font-size:1rem;margin-bottom:2rem}
+  .hero-eyebrow span{font-size:0.55rem;letter-spacing:0.15em}
+  .hero-actions{flex-direction:column;width:100%}
+  .hero-actions .btn-primary,.hero-actions .btn-secondary{width:100%;justify-content:center}
+  .stat-item{padding:1.3rem 1rem}
+  .stat-number{font-size:1.5rem}
+  .stat-label{font-size:0.6rem}
+  .about-image-wrap{display:none}
+  .about-content h2{font-size:1.6rem}
+  .section-header .section-title,.fullpkg .section-title{font-size:1.5rem}
+  .e2e-grid{grid-template-columns:1fr}
+  .e2e-card{padding:2rem 1.5rem}
+  .quality-content .section-title{font-size:1.5rem}
+  .quality-image{aspect-ratio:16/9}
+  .vision-statement{font-size:1.15rem}
+  .contact-grid{gap:2.5rem}
+  .contact-form{padding:1.8rem}
+  .form-grid{grid-template-columns:1fr}
+  .contact .section-title{font-size:1.5rem}
+  .offices-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr;gap:2rem}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .about,.fullpkg,.quality,.vision,.projects,.contact,.offices{padding:3.5rem 0}
+}
+@media(max-width:540px){
+  .projects-grid{grid-template-columns:1fr}
+  .values-grid{grid-template-columns:1fr}
+  .offices-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .hero-title{font-size:1.6rem}
+  .hero-eyebrow::before,.hero-eyebrow::after{width:1.5rem}
+  .about-features{grid-template-columns:1fr}
+  .value-card{padding:1.5rem 1.2rem}
+  .contact-form{padding:1.4rem}
+}
+@media(max-width:380px){
+  .container{padding:0 1rem}
+  .hero-title{font-size:1.4rem}
+  .stat-number{font-size:1.3rem}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .nav-logo .lm{font-size:1.4rem}
+}
+</style>
+</head>
+<body>
+<!-- Grain -->
+<div class="grain" aria-hidden="true"></div>
+
+<!-- Custom cursor: sewing needle -->
+<div class="cursor-needle" id="cursorNeedle" aria-hidden="true">
+  <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Needle shaft -->
+    <line x1="6" y1="34" x2="30" y2="10" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- Needle point -->
+    <line x1="30" y1="10" x2="35" y2="5" stroke="#E2CC80" stroke-width="1.2" stroke-linecap="round"/>
+    <!-- Needle eye -->
+    <ellipse cx="8" cy="32" rx="2.5" ry="3.5" stroke="#C9A84C" stroke-width="1" fill="none" transform="rotate(-45 8 32)"/>
+  </svg>
+</div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+<!-- Thread trail canvas -->
+<canvas id="threadCanvas" aria-hidden="true"></canvas>
+
+<!-- Cotton particles canvas -->
+<canvas id="cottonCanvas" aria-hidden="true"></canvas>
+
+<!-- Mobile Navigation -->
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+  <a href="#about" onclick="closeNav()">About Us</a>
+  <a href="#production" onclick="closeNav()">Production</a>
+  <a href="#quality" onclick="closeNav()">Quality</a>
+  <a href="#projects" onclick="closeNav()">Products</a>
+  <a href="#contact" onclick="closeNav()">Contact</a>
+</nav>
+
+<!-- =============================================
+     NAVIGATION
+     ============================================= -->
+<header class="navbar" id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="lm">JAR<span>A</span></div>
+        <div class="ls">Apparel Sourcing BD</div>
+      </a>
+      <nav class="nav-menu" aria-label="Main navigation">
+        <a href="#about" class="nav-link">About Us</a>
+        <a href="#production" class="nav-link">Production</a>
+        <a href="#quality" class="nav-link">Quality</a>
+        <a href="#sustainability" class="nav-link">Sustainability</a>
+        <a href="#projects" class="nav-link">Products</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+      <a href="#contact" class="nav-cta">Get a Quote</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- =============================================
+     HERO — IMAGE SLIDER
+     ============================================= -->
+<section class="hero" id="home">
+  <div class="hero-bg" id="heroBg">
+    <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1558171813-4c088753af8f?w=1600&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1504711434969-e33886168d9c?w=1600&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1600&q=80')"></div>
+  </div>
+  <div class="hero-weave" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span>Clothing &amp; Accessories Manufacturers Network</span></div>
+    <h1 class="hero-title">
+      Welcome to <em>JARA</em><br>Apparel Sourcing BD
+    </h1>
+    <p class="hero-subtitle">Your Brand is our primary priority</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary"><span>Request a Quote</span></a>
+      <a href="#production" class="btn-secondary"><span>Our Process</span> <span>&rarr;</span></a>
+    </div>
+  </div>
+
+  <div class="hero-dots" id="heroDots">
+    <button class="hero-dot active" data-slide="0" aria-label="Slide 1"></button>
+    <button class="hero-dot" data-slide="1" aria-label="Slide 2"></button>
+    <button class="hero-dot" data-slide="2" aria-label="Slide 3"></button>
+    <button class="hero-dot" data-slide="3" aria-label="Slide 4"></button>
+  </div>
+</section>
+
+<!-- =============================================
+     STATS
+     ============================================= -->
+<section class="stats-bar" aria-label="Stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal"><div class="stat-number" data-target="15" data-suffix="+">0</div><div class="stat-label">Years Experience</div></div>
+      <div class="stat-item reveal d2"><div class="stat-number" data-target="500" data-suffix="+">0</div><div class="stat-label">Global Clients</div></div>
+      <div class="stat-item reveal d3"><div class="stat-number" data-target="50" data-suffix="+">0</div><div class="stat-label">Partner Factories</div></div>
+      <div class="stat-item reveal d4"><div class="stat-number" data-target="100" data-suffix="%">0</div><div class="stat-label">Quality Guarantee</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     ABOUT — ONE-STEP SOLUTION
+     ============================================= -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-wrap rev-l">
+        <div class="about-image">
+          <img src="https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&q=80" alt="Garment factory in Bangladesh" loading="lazy">
+        </div>
+        <div class="about-badge">
+          <div class="bn">15+</div>
+          <div class="bt">Years of<br>Excellence</div>
+        </div>
+      </div>
+
+      <div class="about-content rev-r">
+        <div class="section-tag">One-Step Solution</div>
+        <h2>Get everything made<br><em>under one roof</em></h2>
+        <p>Save time, money, and effort from dealing with multiple suppliers. We do all of the work for you — we handle the entire end-to-end sourcing, samples, and production management for your clothing and accessories collection.</p>
+        <p>We help you take care of everything to bring your vision to life. From fabric sourcing and tech pack development to bulk production and global shipping — JARA is your single point of contact in Bangladesh.</p>
+
+        <div class="about-features">
+          <div class="about-feat"><div class="feat-dot"></div><span>End-to-end production management</span></div>
+          <div class="about-feat"><div class="feat-dot"></div><span>100% quality guarantee</span></div>
+          <div class="about-feat"><div class="feat-dot"></div><span>Full package manufacturing</span></div>
+          <div class="about-feat"><div class="feat-dot"></div><span>Experienced & helpful team</span></div>
+          <div class="about-feat"><div class="feat-dot"></div><span>Competitive factory pricing</span></div>
+          <div class="about-feat"><div class="feat-dot"></div><span>We always got your back</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     END-TO-END SOLUTIONS (PRODUCTION)
+     ============================================= -->
+<section class="fullpkg" id="production">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">End to End Solutions</div>
+      <h2 class="section-title">Full Package <em>Clothing Manufacturing</em></h2>
+      <p class="section-desc">We help you take care of everything to bring your vision to life. From concept to delivery, every step managed under one roof.</p>
+    </div>
+
+    <div class="e2e-grid">
+      <div class="e2e-card reveal d1">
+        <div class="e2e-num">01</div>
+        <span class="e2e-icon">📐</span>
+        <h3>Product Development</h3>
+        <ul class="e2e-list">
+          <li>Fabric &amp; Trims Sourcing</li>
+          <li>Tech Pack Development</li>
+          <li>Pattern Development</li>
+          <li>Size Chart Grading</li>
+          <li>Sample Development</li>
+        </ul>
+      </div>
+      <div class="e2e-card reveal d2">
+        <div class="e2e-num">02</div>
+        <span class="e2e-icon">🏭</span>
+        <h3>Manufacturing</h3>
+        <ul class="e2e-list">
+          <li>Cut &amp; Sew Manufacturing</li>
+          <li>Printing &amp; Embroidery</li>
+          <li>Dyeing &amp; Washing</li>
+          <li>Bulk Production</li>
+          <li>Custom Fabric</li>
+        </ul>
+      </div>
+      <div class="e2e-card reveal d3">
+        <div class="e2e-num">03</div>
+        <span class="e2e-icon">👔</span>
+        <h3>Categories</h3>
+        <ul class="e2e-list">
+          <li>Activewear &amp; Sportswear</li>
+          <li>Sweaters</li>
+          <li>Swimwear</li>
+          <li>Seamless Wear</li>
+          <li>Work Wear</li>
+        </ul>
+      </div>
+      <div class="e2e-card reveal d4">
+        <div class="e2e-num">04</div>
+        <span class="e2e-icon">📦</span>
+        <h3>Others</h3>
+        <ul class="e2e-list">
+          <li>Quality Control Inspection</li>
+          <li>Shipping</li>
+          <li>Custom Notions &amp; Trims</li>
+          <li>Labels &amp; Tags</li>
+          <li>Packing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     QUALITY
+     ============================================= -->
+<section class="quality" id="quality">
+  <div class="container">
+    <div class="quality-grid">
+      <div class="quality-content rev-l">
+        <div class="section-tag">Quality Assurance</div>
+        <h2 class="section-title">100% Quality <em>Guarantee</em></h2>
+        <p>Every step of the way at our factory we oversee the quality &amp; production of your brand and design for top quality.</p>
+        <p>Work with an experienced team of helpful professionals who care about your brand's success. We always got your back — from initial sampling through final shipment inspection.</p>
+        <p>Our multi-stage quality control process includes inline inspection, mid-production checks, pre-shipment audits, and final AQL inspection before your goods leave Bangladesh.</p>
+        <div style="margin-top:2rem">
+          <a href="#contact" class="btn-primary" style="background:var(--gold)"><span>Discuss Your Project</span></a>
+        </div>
+      </div>
+      <div class="quality-image rev-r">
+        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80" alt="Quality control inspection" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     VISION & VALUES
+     ============================================= -->
+<section class="vision" id="sustainability">
+  <div class="container">
+    <div class="vision-header reveal">
+      <div class="section-tag" style="justify-content:center">Our Vision &amp; Values</div>
+      <h2 class="section-title" style="text-align:center">What <em>Drives Us</em></h2>
+    </div>
+
+    <div class="vision-statement reveal">
+      &ldquo;To be the company that best meets the requirements of products and services of the global fashion market.&rdquo;
+    </div>
+
+    <div class="values-grid">
+      <div class="value-card reveal d1">
+        <span class="value-icon">👥</span>
+        <h3>People</h3>
+        <p>To provide a good working environment where people are inspired to grow and give their best.</p>
+      </div>
+      <div class="value-card reveal d2">
+        <span class="value-icon">🤝</span>
+        <h3>Clients</h3>
+        <p>To be a reliable and helpful partner that exceeds expectations.</p>
+      </div>
+      <div class="value-card reveal d3">
+        <span class="value-icon">✨</span>
+        <h3>Products</h3>
+        <p>To produce products that meet the quality expectations of our clients &amp; their customers.</p>
+      </div>
+      <div class="value-card reveal d1">
+        <span class="value-icon">⚖️</span>
+        <h3>Ethics</h3>
+        <p>We are an expert who focuses on the principles of ethical product manufacturing.</p>
+      </div>
+      <div class="value-card reveal d2">
+        <span class="value-icon">🌍</span>
+        <h3>Social</h3>
+        <p>Ensure that our partners provide a fair wage and safe working environment.</p>
+      </div>
+      <div class="value-card reveal d3">
+        <span class="value-icon">🔗</span>
+        <h3>Partners</h3>
+        <p>Nurturing a network of partners and building mutual loyalty.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     LATEST PROJECTS / PRODUCTS
+     ============================================= -->
+<section class="projects" id="projects">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag" style="color:var(--gold);justify-content:center">
+        <span style="display:inline-block;width:2rem;height:1px;background:var(--gold)"></span>
+        Latest Projects
+        <span style="display:inline-block;width:2rem;height:1px;background:var(--gold)"></span>
+      </div>
+      <h2 class="section-title">Our <em>Products</em></h2>
+    </div>
+
+    <div class="projects-grid">
+      <div class="project-card reveal d1">
+        <div class="project-inner">
+          <img src="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=800&q=80" alt="Women's apparel collection" loading="lazy">
+          <div class="project-overlay"></div>
+          <div class="project-arrow">&nearr;</div>
+          <div class="project-content">
+            <div class="project-cat">Collection</div>
+            <div class="project-name">Women's Apparel</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal d2">
+        <div class="project-inner">
+          <img src="https://images.unsplash.com/photo-1434389677669-e08b4cda3a77?w=800&q=80" alt="Knitwear production" loading="lazy">
+          <div class="project-overlay"></div>
+          <div class="project-arrow">&nearr;</div>
+          <div class="project-content">
+            <div class="project-cat">Collection</div>
+            <div class="project-name">Knitwear</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal d3">
+        <div class="project-inner">
+          <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=800&q=80" alt="Toddler clothing" loading="lazy">
+          <div class="project-overlay"></div>
+          <div class="project-arrow">&nearr;</div>
+          <div class="project-content">
+            <div class="project-cat">Collection</div>
+            <div class="project-name">Toddler Clothing</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="explore-all reveal">
+      <a href="#contact" class="btn-secondary" style="border-color:rgba(201,168,76,0.3);color:var(--gold)">
+        <span>Explore All Products</span> <span>&rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     CONTACT
+     ============================================= -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info rev-l">
+        <div class="section-tag">Get In Touch</div>
+        <h2 class="section-title">We're here<br>to <em>help</em></h2>
+        <p>We welcome your inquiry via phone, email, or contact form. We will reply as soon as possible. Your brand is our primary priority.</p>
+
+        <div class="contact-details">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="ci-text">
+              <h4>Bangladesh Office</h4>
+              <p>House: 1064 (3rd Floor), Road: 07 (Old 40)<br>Avenue: 07, Mirpur 12, New Dohs, Dhaka</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📧</div>
+            <div class="ci-text">
+              <h4>Email</h4>
+              <p>info@jara-apparelsourcingbd.com</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="ci-text">
+              <h4>Phone</h4>
+              <p>+880 1XXX-XXXXXX</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form rev-r">
+        <div class="form-title">Send an Inquiry</div>
+        <form action="#" method="POST" novalidate>
+          <div class="form-grid">
+            <div class="form-group"><label for="fn">Full Name</label><input type="text" id="fn" placeholder="Your name" required></div>
+            <div class="form-group"><label for="co">Company</label><input type="text" id="co" placeholder="Company name"></div>
+            <div class="form-group"><label for="em">Email</label><input type="email" id="em" placeholder="you@company.com" required></div>
+            <div class="form-group"><label for="ph">Phone</label><input type="tel" id="ph" placeholder="+1 234 567 890"></div>
+            <div class="form-group full"><label for="sb">Subject</label>
+              <select id="sb">
+                <option value="" disabled selected>What can we help with?</option>
+                <option>Product Development</option>
+                <option>Bulk Manufacturing</option>
+                <option>Sampling</option>
+                <option>Quality Control</option>
+                <option>Pricing &amp; Quote</option>
+                <option>Other Inquiry</option>
+              </select>
+            </div>
+            <div class="form-group full"><label for="msg">Message</label>
+              <textarea id="msg" placeholder="Tell us about your requirements, quantities, timelines..."></textarea></div>
+          </div>
+          <button type="submit" class="btn-submit"><span>Send Message</span></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     GLOBAL OFFICES
+     ============================================= -->
+<section class="offices">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag" style="color:var(--gold);justify-content:center">
+        <span style="display:inline-block;width:2rem;height:1px;background:var(--gold)"></span>
+        Global Presence
+        <span style="display:inline-block;width:2rem;height:1px;background:var(--gold)"></span>
+      </div>
+      <h2 class="section-title" style="text-align:center">Our <em>Offices</em></h2>
+    </div>
+    <div class="offices-grid">
+      <div class="office-card reveal d1">
+        <span class="office-flag">🇧🇩</span>
+        <h3>Bangladesh</h3>
+        <p>House: 1064, Road: 07<br>Mirpur 12, New Dohs, Dhaka</p>
+      </div>
+      <div class="office-card reveal d2">
+        <span class="office-flag">🇵🇱</span>
+        <h3>Poland</h3>
+        <p>UL. Dębowa 2, Agatówka<br>37-464 Stalowa Wola</p>
+      </div>
+      <div class="office-card reveal d3">
+        <span class="office-flag">🇦🇪</span>
+        <h3>UAE</h3>
+        <p>SAIF-Zone, Sharjah<br>United Arab Emirates</p>
+      </div>
+      <div class="office-card reveal d4">
+        <span class="office-flag">🇨🇳</span>
+        <h3>China</h3>
+        <p>Xinghui Xuan, Building A<br>Haizhu District, Guangzhou</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     FOOTER
+     ============================================= -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="lm">JAR<span>A</span></div>
+        <div class="ls">Apparel Sourcing BD</div>
+        <div class="gold-div"></div>
+        <p>Your trusted clothing &amp; accessories manufacturers network in Bangladesh. Full package garment solutions from concept to delivery.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+          <a href="#" class="social-link" aria-label="Facebook">f</a>
+          <a href="#" class="social-link" aria-label="WhatsApp">W</a>
+          <a href="#" class="social-link" aria-label="Instagram">ig</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul class="footer-links">
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#production">Production</a></li>
+          <li><a href="#quality">Quality</a></li>
+          <li><a href="#sustainability">Sustainability</a></li>
+          <li><a href="#projects">Products</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li><a href="#production">Fabric Sourcing</a></li>
+          <li><a href="#production">Tech Pack Development</a></li>
+          <li><a href="#production">Sample Creation</a></li>
+          <li><a href="#production">Manufacturing</a></li>
+          <li><a href="#production">Quality Control</a></li>
+          <li><a href="#production">Shipping</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div class="fc-item"><span class="fci">📍</span><p>Mirpur 12, New Dohs<br>Dhaka, Bangladesh</p></div>
+        <div class="fc-item"><span class="fci">📧</span><p>info@jara-apparelsourcingbd.com</p></div>
+        <div class="fc-item"><span class="fci">📞</span><p>+880 1XXX-XXXXXX</p></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copyright">&copy; 2026 JARA Apparel Sourcing BD. All rights reserved.</div>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- =============================================
+     JAVASCRIPT
+     ============================================= -->
+<script>
+(function(){
+  'use strict';
+
+  /* -------- CUSTOM CURSOR: SEWING NEEDLE -------- */
+  const needle = document.getElementById('cursorNeedle');
+  const dot = document.getElementById('cursorDot');
+  let mx = 0, my = 0, nx = 0, ny = 0, dx = 0, dy = 0;
+  let prevMx = 0, prevMy = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+  });
+
+  function animateCursor() {
+    // Smooth follow for needle
+    nx += (mx - nx) * 0.15;
+    ny += (my - ny) * 0.15;
+    dx += (mx - dx) * 0.35;
+    dy += (my - dy) * 0.35;
+
+    // Calculate angle for needle rotation based on movement direction
+    const diffX = mx - prevMx;
+    const diffY = my - prevMy;
+    let angle = -45;
+    if (Math.abs(diffX) > 0.5 || Math.abs(diffY) > 0.5) {
+      angle = Math.atan2(diffY, diffX) * (180 / Math.PI) - 45;
+    }
+    prevMx = mx;
+    prevMy = my;
+
+    if (needle) {
+      needle.style.left = nx + 'px';
+      needle.style.top = ny + 'px';
+      needle.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+    }
+    if (dot) {
+      dot.style.left = dx + 'px';
+      dot.style.top = dy + 'px';
+    }
+
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+
+  // Hover effect on interactive elements
+  const hoverEls = document.querySelectorAll('a, button, .e2e-card, .value-card, .project-card, .office-card, input, textarea, select');
+  hoverEls.forEach(el => {
+    el.addEventListener('mouseenter', () => dot && dot.classList.add('hover'));
+    el.addEventListener('mouseleave', () => dot && dot.classList.remove('hover'));
+  });
+
+  /* -------- THREAD TRAIL (Canvas) -------- */
+  const threadCanvas = document.getElementById('threadCanvas');
+  if (threadCanvas) {
+    const tCtx = threadCanvas.getContext('2d');
+    let trail = [];
+    const maxTrail = 30;
+
+    function resizeThread() {
+      threadCanvas.width = window.innerWidth;
+      threadCanvas.height = window.innerHeight;
+    }
+    resizeThread();
+    window.addEventListener('resize', resizeThread);
+
+    function drawThread() {
+      tCtx.clearRect(0, 0, threadCanvas.width, threadCanvas.height);
+
+      // Add current mouse position
+      trail.push({ x: mx, y: my, age: 0 });
+      if (trail.length > maxTrail) trail.shift();
+
+      // Draw thread-like curve
+      if (trail.length > 2) {
+        tCtx.beginPath();
+        tCtx.moveTo(trail[0].x, trail[0].y);
+        for (let i = 1; i < trail.length - 1; i++) {
+          const xc = (trail[i].x + trail[i + 1].x) / 2;
+          const yc = (trail[i].y + trail[i + 1].y) / 2;
+          tCtx.quadraticCurveTo(trail[i].x, trail[i].y, xc, yc);
+        }
+        // Thread appearance: gold, thin, slightly transparent
+        const grad = tCtx.createLinearGradient(
+          trail[0].x, trail[0].y,
+          trail[trail.length - 1].x, trail[trail.length - 1].y
+        );
+        grad.addColorStop(0, 'rgba(201, 168, 76, 0)');
+        grad.addColorStop(0.3, 'rgba(201, 168, 76, 0.25)');
+        grad.addColorStop(1, 'rgba(201, 168, 76, 0.5)');
+        tCtx.strokeStyle = grad;
+        tCtx.lineWidth = 1.2;
+        tCtx.lineCap = 'round';
+        tCtx.lineJoin = 'round';
+        tCtx.stroke();
+
+        // Stitch marks along the thread path
+        for (let i = 0; i < trail.length; i += 4) {
+          const p = trail[i];
+          const alpha = ((i / trail.length) * 0.5).toFixed(2);
+          tCtx.save();
+          tCtx.translate(p.x, p.y);
+          // Small perpendicular stitch mark
+          if (i > 0) {
+            const prev = trail[i - 1];
+            const ang = Math.atan2(p.y - prev.y, p.x - prev.x) + Math.PI / 2;
+            tCtx.rotate(ang);
+          }
+          tCtx.beginPath();
+          tCtx.moveTo(-3, 0);
+          tCtx.lineTo(3, 0);
+          tCtx.strokeStyle = `rgba(201, 168, 76, ${alpha})`;
+          tCtx.lineWidth = 0.8;
+          tCtx.stroke();
+          tCtx.restore();
+        }
+      }
+
+      requestAnimationFrame(drawThread);
+    }
+    drawThread();
+  }
+
+  /* -------- COTTON PARTICLES -------- */
+  const cottonCanvas = document.getElementById('cottonCanvas');
+  if (cottonCanvas) {
+    const cCtx = cottonCanvas.getContext('2d');
+    const cottonParticles = [];
+    const maxParticles = 35;
+
+    function resizeCotton() {
+      cottonCanvas.width = window.innerWidth;
+      cottonCanvas.height = window.innerHeight;
+    }
+    resizeCotton();
+    window.addEventListener('resize', resizeCotton);
+
+    // Spawn cotton particles near mouse on movement
+    let lastSpawn = 0;
+    document.addEventListener('mousemove', e => {
+      const now = Date.now();
+      if (now - lastSpawn > 100 && cottonParticles.length < maxParticles) {
+        lastSpawn = now;
+        cottonParticles.push({
+          x: e.clientX + (Math.random() - 0.5) * 30,
+          y: e.clientY + (Math.random() - 0.5) * 30,
+          size: Math.random() * 4 + 2,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: Math.random() * 0.3 + 0.2,
+          opacity: 0.6 + Math.random() * 0.3,
+          rotation: Math.random() * Math.PI * 2,
+          rotSpeed: (Math.random() - 0.5) * 0.02,
+          life: 1
+        });
+      }
+    });
+
+    function drawCotton() {
+      cCtx.clearRect(0, 0, cottonCanvas.width, cottonCanvas.height);
+
+      for (let i = cottonParticles.length - 1; i >= 0; i--) {
+        const p = cottonParticles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rotation += p.rotSpeed;
+        p.life -= 0.008;
+        p.opacity = p.life * 0.5;
+
+        if (p.life <= 0) { cottonParticles.splice(i, 1); continue; }
+
+        // Draw cotton fiber (fuzzy ellipse)
+        cCtx.save();
+        cCtx.translate(p.x, p.y);
+        cCtx.rotate(p.rotation);
+        cCtx.globalAlpha = p.opacity;
+
+        // Fluffy cotton fiber shape
+        cCtx.beginPath();
+        cCtx.ellipse(0, 0, p.size, p.size * 0.5, 0, 0, Math.PI * 2);
+        cCtx.fillStyle = '#F8F4EE';
+        cCtx.shadowColor = 'rgba(248, 244, 238, 0.4)';
+        cCtx.shadowBlur = 4;
+        cCtx.fill();
+
+        // Tiny fiber lines
+        cCtx.beginPath();
+        cCtx.moveTo(-p.size * 0.8, 0);
+        cCtx.lineTo(p.size * 0.8, 0);
+        cCtx.strokeStyle = 'rgba(248, 244, 238, 0.3)';
+        cCtx.lineWidth = 0.5;
+        cCtx.stroke();
+
+        cCtx.restore();
+      }
+
+      requestAnimationFrame(drawCotton);
+    }
+    drawCotton();
+  }
+
+  /* -------- NAVBAR SCROLL -------- */
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  /* -------- MOBILE NAV -------- */
+  const hb = document.getElementById('hamburger');
+  const mn = document.getElementById('mobileNav');
+  hb.addEventListener('click', () => {
+    const open = hb.classList.toggle('open');
+    hb.setAttribute('aria-expanded', open);
+    mn.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  window.closeNav = function() {
+    hb.classList.remove('open');
+    hb.setAttribute('aria-expanded', 'false');
+    mn.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  /* -------- HERO SLIDER -------- */
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots = document.querySelectorAll('.hero-dot');
+  let current = 0;
+  let autoSlide;
+
+  function goToSlide(idx) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = idx;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+
+  function nextSlide() { goToSlide((current + 1) % slides.length); }
+
+  function startAuto() { autoSlide = setInterval(nextSlide, 5000); }
+  function resetAuto() { clearInterval(autoSlide); startAuto(); }
+
+  dots.forEach(d => d.addEventListener('click', () => {
+    goToSlide(parseInt(d.dataset.slide));
+    resetAuto();
+  }));
+  startAuto();
+
+  /* -------- REVEAL ON SCROLL -------- */
+  const revealEls = document.querySelectorAll('.reveal, .rev-l, .rev-r');
+  const revObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('vis'); revObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  revealEls.forEach(el => revObs.observe(el));
+
+  /* -------- ANIMATED COUNTERS -------- */
+  function animateNum(el) {
+    const target = parseInt(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    const dur = 2200;
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  let countersGo = false;
+  const statsSection = document.querySelector('.stats-bar');
+  if (statsSection) {
+    const sObs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && !countersGo) {
+        countersGo = true;
+        document.querySelectorAll('.stat-number[data-target]').forEach(el => {
+          setTimeout(() => animateNum(el), 200);
+        });
+      }
+    }, { threshold: 0.5 });
+    sObs.observe(statsSection);
+  }
+
+  /* -------- SMOOTH SCROLL -------- */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) {
+        e.preventDefault();
+        window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+      }
+    });
+  });
+
+  /* -------- FORM SUBMIT -------- */
+  const frm = document.querySelector('.contact-form form');
+  if (frm) frm.addEventListener('submit', e => {
+    e.preventDefault();
+    const b = frm.querySelector('.btn-submit span');
+    b.textContent = '✓ Sent — We\'ll get back to you!';
+    setTimeout(() => b.textContent = 'Send Message', 4000);
+  });
+
+  /* -------- PARALLAX HERO -------- */
+  const heroC = document.querySelector('.hero-content');
+  if (heroC) {
+    window.addEventListener('scroll', () => {
+      const s = window.scrollY;
+      if (s < window.innerHeight) {
+        heroC.style.transform = `translateY(${s * 0.22}px)`;
+        heroC.style.opacity = 1 - (s / (window.innerHeight * 0.75));
+      }
+    }, { passive: true });
+  }
+
+})();
+</script>
+</body>
+</html>
