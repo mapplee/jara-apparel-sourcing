@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JARA Apparel Sourcing Ltd — Global Reach. Exceptional Sourcing.</title>
+<meta name="description" content="JARA Apparel Sourcing Ltd — Full package clothing manufacturer and buying house in Bangladesh.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --maroon: #7A1930;
+  --maroon-dark: #5A1222;
+  --maroon-deep: #3D0C17;
+  --gold: #C9A84C;
+  --gold-light: #DFCA88;
+  --cream: #FDFBF7;
+  --cream-alt: #F7F3ED;
+  --white: #FFFFFF;
+  --text: #2a2a2a;
+  --text-light: #7a7a7a;
+  --text-lighter: #b0b0b0;
+  --border: #eae6e0;
+
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Outfit', system-ui, sans-serif;
+  --ease: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* === RESET === */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--sans);color:var(--text);background:var(--white);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;outline:none;font-family:var(--sans)}
+ul{list-style:none}
+::selection{background:var(--maroon);color:var(--white)}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--cream)}
+::-webkit-scrollbar-thumb{background:var(--maroon);border-radius:2px}
+
+/* === UTILITY === */
+.container{max-width:1200px;margin:0 auto;padding:0 2rem}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* === NAVBAR === */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;transition:var(--ease)}
+.nav.scrolled{background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);
+  box-shadow:0 1px 0 var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
+.nav-logo{display:flex;align-items:center;gap:0.6rem}
+.nav-logo-icon{width:36px;height:36px}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1}
+.nav-logo-text .nm{font-family:var(--serif);font-size:1.25rem;font-weight:700;color:var(--maroon);letter-spacing:0.04em}
+.nav-logo-text .ns{font-size:0.38rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-light);margin-top:0.12rem}
+.nav:not(.scrolled) .nav-logo-text .nm{color:var(--white)}
+.nav:not(.scrolled) .nav-logo-text .ns{color:rgba(255,255,255,0.5)}
+.nav:not(.scrolled) .nav-logo-icon path,.nav:not(.scrolled) .nav-logo-icon circle,
+.nav:not(.scrolled) .nav-logo-icon ellipse,.nav:not(.scrolled) .nav-logo-icon line,
+.nav:not(.scrolled) .nav-logo-icon polyline{stroke:var(--white) !important;fill:none}
+.nav:not(.scrolled) .nav-logo-icon path[fill]{fill:var(--white) !important}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-link{font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--text-light);transition:color var(--ease)}
+.nav:not(.scrolled) .nav-link{color:rgba(255,255,255,0.7)}
+.nav-link:hover{color:var(--maroon)}
+.nav:not(.scrolled) .nav-link:hover{color:var(--white)}
+.nav-cta-btn{background:var(--maroon);color:var(--white);padding:0.5rem 1.2rem;
+  font-size:0.65rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;transition:var(--ease)}
+.nav-cta-btn:hover{background:var(--maroon-dark)}
+.nav:not(.scrolled) .nav-cta-btn{background:var(--white);color:var(--maroon)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:transparent;padding:4px}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--maroon);transition:var(--ease)}
+.nav:not(.scrolled) .hamburger span{background:var(--white)}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4.5px,4.5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4.5px,-4.5px)}
+
+/* Mobile nav */
+.mob-nav{display:none;position:fixed;inset:0;background:var(--white);z-index:999;
+  flex-direction:column;align-items:center;justify-content:center;gap:2rem;
+  opacity:0;pointer-events:none;transition:opacity var(--ease)}
+.mob-nav.open{opacity:1;pointer-events:all}
+.mob-nav a{font-family:var(--serif);font-size:1.5rem;font-weight:500;color:var(--text);transition:color var(--ease)}
+.mob-nav a:hover{color:var(--maroon)}
+
+/* === HERO SLIDER === */
+.hero{position:relative;height:100vh;overflow:hidden}
+.hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.5s ease}
+.hero-slide.active{opacity:1}
+.hero-slide img{width:100%;height:100%;object-fit:cover}
+.hero-slide::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(0,0,0,0.2) 0%,rgba(0,0,0,0.1) 40%,rgba(0,0,0,0.4) 100%)}
+.hero-content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;padding:2rem}
+.hero-badge{font-size:0.58rem;font-weight:600;letter-spacing:0.35em;text-transform:uppercase;
+  color:rgba(255,255,255,0.6);margin-bottom:1.5rem;
+  opacity:0;animation:fadeUp .8s ease .3s forwards}
+.hero-title{font-family:var(--serif);font-size:clamp(2rem,5vw,4.2rem);font-weight:700;
+  color:var(--white);line-height:1.15;margin-bottom:1rem;max-width:800px;
+  opacity:0;animation:fadeUp .8s ease .5s forwards}
+.hero-sub{font-size:clamp(0.85rem,1.3vw,1.05rem);font-weight:300;color:rgba(255,255,255,0.65);
+  margin-bottom:2rem;max-width:500px;line-height:1.6;
+  opacity:0;animation:fadeUp .8s ease .7s forwards}
+.hero-btn{display:inline-flex;align-items:center;gap:0.5rem;background:var(--white);color:var(--maroon);
+  padding:0.8rem 2rem;font-size:0.7rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;
+  transition:var(--ease);opacity:0;animation:fadeUp .8s ease .9s forwards}
+.hero-btn:hover{background:var(--maroon);color:var(--white)}
+.hero-dots{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:3;
+  display:flex;gap:0.5rem;opacity:0;animation:fadeIn 1s ease 1.2s forwards}
+.hero-dot{width:30px;height:3px;background:rgba(255,255,255,0.3);border:none;transition:var(--ease)}
+.hero-dot.active{background:var(--white);width:45px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* === ONE-STEP SECTION === */
+.one-step{padding:6rem 0;text-align:center;background:var(--white)}
+.one-step .label{font-size:0.6rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--maroon);margin-bottom:1.5rem;display:flex;align-items:center;justify-content:center;gap:0.8rem}
+.one-step .label::before,.one-step .label::after{content:'';width:2rem;height:1px;background:var(--maroon);opacity:0.3}
+.one-step h2{font-family:var(--serif);font-size:clamp(1.5rem,2.8vw,2.2rem);font-weight:600;
+  color:var(--text);line-height:1.3;margin-bottom:1.2rem;max-width:600px;margin-left:auto;margin-right:auto}
+.one-step p{font-size:0.95rem;line-height:1.8;color:var(--text-light);max-width:520px;margin:0 auto}
+
+/* === BRAND PRIORITY (2-col) === */
+.brand{padding:0 0 6rem;background:var(--white)}
+.brand-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:500px}
+.brand-img{position:relative;overflow:hidden}
+.brand-img img{width:100%;height:100%;object-fit:cover}
+.brand-text{display:flex;flex-direction:column;justify-content:center;padding:4rem 5rem;background:var(--cream-alt)}
+.brand-text .label{font-size:0.58rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--maroon);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.6rem}
+.brand-text .label::before{content:'';width:1.5rem;height:1px;background:var(--maroon);opacity:0.3}
+.brand-text h2{font-family:var(--serif);font-size:clamp(1.3rem,2.2vw,1.8rem);font-weight:600;
+  color:var(--text);line-height:1.3;margin-bottom:1.2rem}
+.brand-text p{font-size:0.9rem;line-height:1.8;color:var(--text-light);margin-bottom:1rem}
+.brand-text .btn-line{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.68rem;
+  font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--maroon);
+  margin-top:0.5rem;transition:gap var(--ease)}
+.brand-text .btn-line:hover{gap:0.8rem}
+
+/* === END-TO-END === */
+.e2e{padding:6rem 0;background:var(--white)}
+.e2e .section-head{text-align:center;margin-bottom:4rem}
+.e2e .section-head .label{font-size:0.6rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--maroon);margin-bottom:1rem;display:flex;align-items:center;justify-content:center;gap:0.8rem}
+.e2e .section-head .label::before,.e2e .section-head .label::after{content:'';width:2rem;height:1px;background:var(--maroon);opacity:0.3}
+.e2e .section-head h2{font-family:var(--serif);font-size:clamp(1.4rem,2.5vw,2rem);font-weight:600;color:var(--text)}
+.e2e-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border)}
+.e2e-card{padding:2.5rem 2rem;border-right:1px solid var(--border);position:relative}
+.e2e-card:last-child{border-right:none}
+.e2e-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--maroon);transform:scaleX(0);transition:transform var(--ease);transform-origin:left}
+.e2e-card:hover::after{transform:scaleX(1)}
+.e2e-num{font-family:var(--serif);font-size:2.5rem;font-weight:700;color:var(--cream-alt);
+  line-height:1;margin-bottom:1rem;transition:color var(--ease)}
+.e2e-card:hover .e2e-num{color:rgba(122,25,48,0.08)}
+.e2e-card h3{font-family:var(--serif);font-size:0.95rem;font-weight:600;color:var(--text);margin-bottom:1.2rem}
+.e2e-list li{font-size:0.82rem;color:var(--text-light);padding:0.4rem 0;
+  border-bottom:1px solid rgba(0,0,0,0.04);display:flex;align-items:center;gap:0.5rem}
+.e2e-list li::before{content:'';width:4px;height:1px;background:var(--maroon);opacity:0.4;flex-shrink:0}
+.e2e-list li:last-child{border-bottom:none}
+
+/* === QUALITY BANNER === */
+.quality-banner{position:relative;height:400px;overflow:hidden}
+.quality-banner img{width:100%;height:100%;object-fit:cover}
+.quality-banner::after{content:'';position:absolute;inset:0;background:rgba(61,12,23,0.75)}
+.quality-banner-content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;padding:2rem}
+.quality-banner-content h2{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.5rem);
+  font-weight:700;color:var(--white);margin-bottom:1rem}
+.quality-banner-content p{font-size:0.95rem;line-height:1.8;color:rgba(255,255,255,0.65);
+  max-width:520px;margin:0 auto 1.5rem}
+.quality-banner-content .qb-line{width:40px;height:2px;background:var(--gold);margin:0 auto}
+
+/* === VISION & VALUES === */
+.vision{padding:6rem 0;background:var(--cream)}
+.vision-head{text-align:center;margin-bottom:2rem}
+.vision-head .label{font-size:0.6rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--maroon);margin-bottom:1rem;display:flex;align-items:center;justify-content:center;gap:0.8rem}
+.vision-head .label::before,.vision-head .label::after{content:'';width:2rem;height:1px;background:var(--maroon);opacity:0.3}
+.vision-head h2{font-family:var(--serif);font-size:clamp(1.4rem,2.5vw,2rem);font-weight:600;color:var(--text)}
+.vision-quote{text-align:center;max-width:600px;margin:0 auto 4rem;font-family:var(--serif);
+  font-size:1.15rem;font-weight:400;font-style:italic;color:var(--text-light);line-height:1.7}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.val-card{background:var(--white);padding:2.5rem 2rem;text-align:center;border:1px solid var(--border);
+  transition:var(--ease)}
+.val-card:hover{border-color:rgba(122,25,48,0.15);box-shadow:0 10px 30px rgba(0,0,0,0.04);transform:translateY(-3px)}
+.val-icon{width:40px;height:40px;margin:0 auto 1.2rem;display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--border);border-radius:50%;font-size:1.1rem;transition:var(--ease)}
+.val-card:hover .val-icon{border-color:var(--maroon);background:rgba(122,25,48,0.04)}
+.val-card h3{font-family:var(--serif);font-size:0.9rem;font-weight:600;color:var(--text);
+  margin-bottom:0.6rem;text-transform:capitalize}
+.val-card p{font-size:0.78rem;line-height:1.7;color:var(--text-light)}
+
+/* === LATEST PROJECTS === */
+.projects{padding:6rem 0;background:var(--white)}
+.projects .section-head{text-align:center;margin-bottom:4rem}
+.projects .section-head .label{font-size:0.6rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--maroon);margin-bottom:1rem;display:flex;align-items:center;justify-content:center;gap:0.8rem}
+.projects .section-head .label::before,.projects .section-head .label::after{content:'';width:2rem;height:1px;background:var(--maroon);opacity:0.3}
+.projects .section-head h2{font-family:var(--serif);font-size:clamp(1.4rem,2.5vw,2rem);font-weight:600;color:var(--text)}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.proj-card{position:relative;overflow:hidden;cursor:pointer}
+.proj-img{aspect-ratio:4/3;overflow:hidden}
+.proj-img img{width:100%;height:100%;object-fit:cover;transition:transform var(--ease)}
+.proj-card:hover .proj-img img{transform:scale(1.05)}
+.proj-info{padding:1.2rem 0;text-align:center}
+.proj-info h3{font-family:var(--serif);font-size:1rem;font-weight:600;color:var(--text)}
+.proj-info span{font-size:0.65rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-lighter)}
+.explore-link{text-align:center;margin-top:2.5rem}
+.explore-link a{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.7rem;font-weight:600;
+  letter-spacing:0.15em;text-transform:uppercase;color:var(--maroon);border-bottom:1px solid rgba(122,25,48,0.2);
+  padding-bottom:0.3rem;transition:var(--ease)}
+.explore-link a:hover{border-color:var(--maroon);gap:0.8rem}
+
+/* === CONTACT === */
+.contact{padding:6rem 0;background:var(--cream)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:start}
+.contact-left .label{font-size:0.6rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--maroon);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.6rem}
+.contact-left .label::before{content:'';width:1.5rem;height:1px;background:var(--maroon);opacity:0.3}
+.contact-left h2{font-family:var(--serif);font-size:clamp(1.3rem,2.2vw,1.8rem);font-weight:600;
+  color:var(--text);margin-bottom:1rem}
+.contact-left > p{font-size:0.9rem;line-height:1.8;color:var(--text-light);margin-bottom:2rem}
+.c-item{display:flex;align-items:flex-start;gap:0.8rem;margin-bottom:1.2rem}
+.c-icon{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;
+  justify-content:center;font-size:0.85rem;flex-shrink:0;border-radius:50%}
+.c-label{font-size:0.6rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--maroon);margin-bottom:0.15rem}
+.c-val{font-size:0.82rem;color:var(--text-light);line-height:1.5}
+.contact-form{background:var(--white);padding:2.5rem;border:1px solid var(--border)}
+.contact-form h3{font-family:var(--serif);font-size:1.1rem;font-weight:600;color:var(--text);margin-bottom:1.5rem}
+.f-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.f-group{display:flex;flex-direction:column;gap:0.3rem}
+.f-group.full{grid-column:1/-1}
+.f-group label{font-size:0.58rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-light)}
+.f-group input,.f-group select,.f-group textarea{
+  background:var(--cream);border:1px solid var(--border);color:var(--text);
+  padding:0.7rem 0.9rem;font-family:var(--sans);font-size:0.82rem;outline:none;
+  transition:border-color var(--ease);width:100%}
+.f-group input:focus,.f-group select:focus,.f-group textarea:focus{border-color:var(--maroon)}
+.f-group input::placeholder,.f-group textarea::placeholder{color:var(--text-lighter)}
+.f-group textarea{resize:vertical;min-height:80px}
+.f-submit{width:100%;background:var(--maroon);color:var(--white);padding:0.8rem;
+  font-size:0.7rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;
+  border:none;transition:var(--ease);margin-top:0.5rem}
+.f-submit:hover{background:var(--maroon-dark)}
+
+/* === OFFICES STRIP === */
+.offices-strip{padding:4rem 0;background:var(--white);border-top:1px solid var(--border)}
+.off-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+.off-item .flag{font-size:1.5rem;margin-bottom:0.5rem}
+.off-item h4{font-family:var(--serif);font-size:0.85rem;font-weight:600;color:var(--text);margin-bottom:0.3rem}
+.off-item p{font-size:0.72rem;color:var(--text-light);line-height:1.5}
+
+/* === FOOTER === */
+.footer{background:var(--maroon-deep);padding:4rem 0 1.5rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:3rem;margin-bottom:3rem}
+.footer-brand .f-logo{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.8rem}
+.footer-brand .f-logo-icon{width:30px;height:30px}
+.footer-brand .f-logo-icon path,.footer-brand .f-logo-icon circle,.footer-brand .f-logo-icon ellipse,
+.footer-brand .f-logo-icon line,.footer-brand .f-logo-icon polyline{stroke:var(--gold)!important}
+.footer-brand .f-logo-icon path[opacity]{fill:var(--gold)!important;stroke:none!important}
+.footer-brand .f-logo-name{font-family:var(--serif);font-size:1.2rem;font-weight:700;color:var(--white);letter-spacing:0.04em}
+.footer-brand .f-logo-name span{color:var(--gold)}
+.footer-brand .f-div{width:40px;height:1px;background:rgba(201,168,76,0.3);margin-bottom:0.8rem}
+.footer-brand > p{font-size:0.78rem;line-height:1.7;color:rgba(255,255,255,0.3);margin-bottom:1rem}
+.socials{display:flex;gap:0.5rem}
+.soc{width:30px;height:30px;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;
+  justify-content:center;color:rgba(255,255,255,0.3);font-size:0.7rem;transition:var(--ease)}
+.soc:hover{border-color:var(--gold);color:var(--gold)}
+.footer-col h4{font-size:0.6rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1rem}
+.footer-col ul{display:flex;flex-direction:column;gap:0.5rem}
+.footer-col li a{font-size:0.78rem;color:rgba(255,255,255,0.3);transition:color var(--ease)}
+.footer-col li a:hover{color:var(--gold)}
+.fc{display:flex;gap:0.6rem;margin-bottom:0.7rem}
+.fc .fci{color:var(--gold);font-size:0.7rem;flex-shrink:0;margin-top:0.1rem}
+.fc p{font-size:0.72rem;color:rgba(255,255,255,0.3);line-height:1.5}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.05);padding-top:1.2rem;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-size:0.68rem;color:rgba(255,255,255,0.15)}
+.footer-legal{display:flex;gap:1.5rem}
+.footer-legal a{font-size:0.68rem;color:rgba(255,255,255,0.15);transition:color var(--ease)}
+.footer-legal a:hover{color:var(--gold)}
+
+/* === RESPONSIVE === */
+@media(max-width:1000px){
+  .e2e-grid{grid-template-columns:repeat(2,1fr)}
+  .e2e-card:nth-child(2){border-right:none}
+  .e2e-card:nth-child(1),.e2e-card:nth-child(2){border-bottom:1px solid var(--border)}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:800px){
+  .brand-grid{grid-template-columns:1fr}
+  .brand-text{padding:3rem 2rem}
+  .contact-grid{grid-template-columns:1fr}
+  .values-grid{grid-template-columns:1fr 1fr}
+  .off-grid{grid-template-columns:1fr 1fr}
+  .quality-banner{height:320px}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta-btn{display:none}
+  .hamburger{display:flex}
+  .mob-nav{display:flex}
+  .nav-inner{height:60px}
+  .container{padding:0 1.2rem}
+  .hero-title{font-size:clamp(1.5rem,7vw,2.2rem)}
+  .one-step,.vision,.projects,.contact,.e2e{padding:4rem 0}
+  .brand-text{padding:2.5rem 1.5rem}
+  .e2e-grid{grid-template-columns:1fr}
+  .e2e-card{border-right:none;border-bottom:1px solid var(--border)}
+  .e2e-card:last-child{border-bottom:none}
+  .proj-grid{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr}
+  .contact-form{padding:1.8rem}
+  .footer-grid{grid-template-columns:1fr;gap:2rem}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .offices-strip{padding:3rem 0}
+}
+@media(max-width:500px){
+  .values-grid{grid-template-columns:1fr}
+  .off-grid{grid-template-columns:1fr}
+  .hero-title{font-size:1.4rem}
+  .nav-logo-icon{width:28px;height:28px}
+  .nav-logo-text .nm{font-size:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Mobile nav -->
+<nav class="mob-nav" id="mobNav">
+  <a href="#about" onclick="closeNav()">About Us</a>
+  <a href="#production" onclick="closeNav()">Production</a>
+  <a href="#quality" onclick="closeNav()">Quality</a>
+  <a href="#products" onclick="closeNav()">Products</a>
+  <a href="#contact" onclick="closeNav()">Contact</a>
+</nav>
+
+<!-- === NAVBAR === -->
+<header class="nav" id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <svg class="nav-logo-icon" viewBox="0 0 100 100" fill="none">
+          <path d="M50 15 C50 15 42 30 30 38 C35 32 44 22 50 15Z" fill="#7A1930" opacity="0.9"/>
+          <path d="M50 15 C50 15 58 30 70 38 C65 32 56 22 50 15Z" fill="#7A1930" opacity="0.9"/>
+          <path d="M50 12 C50 12 35 28 20 42 C28 35 40 22 50 12Z" fill="#7A1930" opacity="0.6"/>
+          <path d="M50 12 C50 12 65 28 80 42 C72 35 60 22 50 12Z" fill="#7A1930" opacity="0.6"/>
+          <path d="M50 10 C50 10 28 30 12 48 C22 38 38 22 50 10Z" fill="#7A1930" opacity="0.35"/>
+          <path d="M50 10 C50 10 72 30 88 48 C78 38 62 22 50 10Z" fill="#7A1930" opacity="0.35"/>
+          <circle cx="50" cy="62" r="22" stroke="#7A1930" stroke-width="1.5" fill="none" opacity="0.4"/>
+          <ellipse cx="50" cy="62" rx="12" ry="22" stroke="#7A1930" stroke-width="0.8" fill="none" opacity="0.25"/>
+          <line x1="28" y1="62" x2="72" y2="62" stroke="#7A1930" stroke-width="0.8" opacity="0.25"/>
+          <line x1="50" y1="75" x2="50" y2="48" stroke="#7A1930" stroke-width="2" stroke-linecap="round"/>
+          <polyline points="42,56 50,47 58,56" stroke="#7A1930" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="nav-logo-text">
+          <div class="nm">JARA</div>
+          <div class="ns">Apparel Sourcing Ltd</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="#about" class="nav-link">About Us</a>
+        <a href="#production" class="nav-link">Production</a>
+        <a href="#quality" class="nav-link">Quality</a>
+        <a href="#products" class="nav-link">Products</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+      <a href="#contact" class="nav-cta-btn">Get a Quote</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- === HERO SLIDER === -->
+<section class="hero" id="home">
+  <div id="heroSlider">
+    <div class="hero-slide active">
+      <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=1600&q=80" alt="Garment manufacturing">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1558171813-4c088753af8f?w=1600&q=80" alt="Textile production">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=1600&q=80" alt="Clothing rack">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1600&q=80" alt="Fashion design">
+    </div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">Clothing &amp; Accessories Manufacturers Network</div>
+    <h1 class="hero-title">Develop, Design &amp; Manufacture High Quality Apparel</h1>
+    <p class="hero-sub">Your Brand is our primary priority. End-to-end garment solutions from Bangladesh.</p>
+    <a href="#contact" class="hero-btn">Get Started &rarr;</a>
+  </div>
+  <div class="hero-dots" id="heroDots">
+    <button class="hero-dot active" data-s="0"></button>
+    <button class="hero-dot" data-s="1"></button>
+    <button class="hero-dot" data-s="2"></button>
+    <button class="hero-dot" data-s="3"></button>
+  </div>
+</section>
+
+<!-- === ONE-STEP SOLUTION === -->
+<section class="one-step" id="about">
+  <div class="container reveal">
+    <div class="label">One-Step Solution</div>
+    <h2>Get everything made under one roof</h2>
+    <p>Save time, money, and effort from dealing with multiple suppliers. We handle the entire end-to-end sourcing, samples, and production management for your clothing and accessories collection.</p>
+  </div>
+</section>
+
+<!-- === YOUR BRAND IS OUR PRIORITY === -->
+<section class="brand">
+  <div class="brand-grid">
+    <div class="brand-img reveal">
+      <img src="https://images.unsplash.com/photo-1558171813-4c088753af8f?w=900&q=80" alt="Garment factory floor" loading="lazy">
+    </div>
+    <div class="brand-text reveal">
+      <div class="label">Your Brand is Our Priority</div>
+      <h2>Full Package Clothing Manufacturing Service</h2>
+      <p>We do all of the work for you — we handle the entire end-to-end sourcing, samples, and production management for your clothing and accessories collection.</p>
+      <p>We help you take care of everything to bring your vision to life.</p>
+      <a href="#contact" class="btn-line">Learn More &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- === END-TO-END SOLUTIONS === -->
+<section class="e2e" id="production">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="label">End to End Solutions</div>
+      <h2>Full Package Manufacturing</h2>
+    </div>
+    <div class="e2e-grid">
+      <div class="e2e-card reveal d1">
+        <div class="e2e-num">01</div>
+        <h3>Product Development</h3>
+        <ul class="e2e-list">
+          <li>Fabric &amp; Trims Sourcing</li>
+          <li>Tech Pack Development</li>
+          <li>Pattern Development</li>
+          <li>Size Chart Grading</li>
+          <li>Sample Development</li>
+        </ul>
+      </div>
+      <div class="e2e-card reveal d2">
+        <div class="e2e-num">02</div>
+        <h3>Manufacturing</h3>
+        <ul class="e2e-list">
+          <li>Cut &amp; Sew Manufacturing</li>
+          <li>Printing &amp; Embroidery</li>
+          <li>Dyeing &amp; Washing</li>
+          <li>Bulk Production</li>
+          <li>Custom Fabric</li>
+        </ul>
+      </div>
+      <div class="e2e-card reveal d3">
+        <div class="e2e-num">03</div>
+        <h3>Categories</h3>
+        <ul class="e2e-list">
+          <li>Activewear &amp; Sportswear</li>
+          <li>Sweaters</li>
+          <li>Swimwear</li>
+          <li>Seamless Wear</li>
+          <li>Work Wear</li>
+        </ul>
+      </div>
+      <div class="e2e-card reveal d4">
+        <div class="e2e-num">04</div>
+        <h3>Others</h3>
+        <ul class="e2e-list">
+          <li>Quality Control Inspection</li>
+          <li>Shipping</li>
+          <li>Custom Notions &amp; Trims</li>
+          <li>Labels &amp; Tags</li>
+          <li>Packing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === QUALITY BANNER === -->
+<section class="quality-banner" id="quality">
+  <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1600&q=80" alt="Quality inspection" loading="lazy">
+  <div class="quality-banner-content reveal">
+    <div class="qb-line" style="margin-bottom:1.5rem"></div>
+    <h2>100% Quality Guarantee</h2>
+    <p>Every step of the way at our factory we oversee the quality &amp; production of your brand and design for top quality. Work with an experienced team of helpful professionals who care about your brand's success.</p>
+    <div class="qb-line"></div>
+  </div>
+</section>
+
+<!-- === VISION & VALUES === -->
+<section class="vision" id="sustainability">
+  <div class="container">
+    <div class="vision-head reveal">
+      <div class="label">Our Vision &amp; Values</div>
+      <h2>What Drives Us</h2>
+    </div>
+    <div class="vision-quote reveal">
+      &ldquo;To be the company that best meets the requirements of products and services of the global fashion market.&rdquo;
+    </div>
+    <div class="values-grid">
+      <div class="val-card reveal d1">
+        <div class="val-icon">👥</div>
+        <h3>People</h3>
+        <p>To provide a good working environment where people are inspired to grow and give their best.</p>
+      </div>
+      <div class="val-card reveal d2">
+        <div class="val-icon">🤝</div>
+        <h3>Clients</h3>
+        <p>To be a reliable and helpful partner that exceeds expectations.</p>
+      </div>
+      <div class="val-card reveal d3">
+        <div class="val-icon">✨</div>
+        <h3>Products</h3>
+        <p>To produce products that meet the quality expectations of our clients &amp; their customers.</p>
+      </div>
+      <div class="val-card reveal d1">
+        <div class="val-icon">⚖️</div>
+        <h3>Ethics</h3>
+        <p>We are an expert who focuses on the principles of ethical product manufacturing.</p>
+      </div>
+      <div class="val-card reveal d2">
+        <div class="val-icon">🌍</div>
+        <h3>Social</h3>
+        <p>Ensure that our partners provide a fair wage and safe working environment.</p>
+      </div>
+      <div class="val-card reveal d3">
+        <div class="val-icon">🔗</div>
+        <h3>Partners</h3>
+        <p>Nurturing a network of partners and building mutual loyalty.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === LATEST PROJECTS === -->
+<section class="projects" id="products">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="label">Latest Projects</div>
+      <h2>Our Products</h2>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-card reveal d1">
+        <div class="proj-img">
+          <img src="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=800&q=80" alt="Women's apparel" loading="lazy">
+        </div>
+        <div class="proj-info">
+          <span>Collection</span>
+          <h3>Women's Apparel</h3>
+        </div>
+      </div>
+      <div class="proj-card reveal d2">
+        <div class="proj-img">
+          <img src="https://images.unsplash.com/photo-1434389677669-e08b4cda3a77?w=800&q=80" alt="Knitwear" loading="lazy">
+        </div>
+        <div class="proj-info">
+          <span>Collection</span>
+          <h3>Knitwear</h3>
+        </div>
+      </div>
+      <div class="proj-card reveal d3">
+        <div class="proj-img">
+          <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=800&q=80" alt="Toddler clothing" loading="lazy">
+        </div>
+        <div class="proj-info">
+          <span>Collection</span>
+          <h3>Toddler Clothing</h3>
+        </div>
+      </div>
+    </div>
+    <div class="explore-link reveal">
+      <a href="#contact">Explore All Products &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- === CONTACT === -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-left reveal">
+        <div class="label">Get In Touch</div>
+        <h2>We're here to help</h2>
+        <p>We welcome your inquiry via phone, email, or contact form. We will reply as soon as possible.</p>
+        <div class="c-item">
+          <div class="c-icon">📍</div>
+          <div><div class="c-label">Bangladesh</div><div class="c-val">House: 1064 (3rd Floor), Road: 07<br>Mirpur 12, New Dohs, Dhaka</div></div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">📧</div>
+          <div><div class="c-label">Email</div><div class="c-val">info@jara-apparelsourcingbd.com</div></div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">📞</div>
+          <div><div class="c-label">Phone</div><div class="c-val">+880 1XXX-XXXXXX</div></div>
+        </div>
+      </div>
+      <div class="contact-form reveal">
+        <h3>Send an Inquiry</h3>
+        <form action="#" method="POST" novalidate>
+          <div class="f-grid">
+            <div class="f-group"><label>Full Name</label><input type="text" placeholder="Your name" required></div>
+            <div class="f-group"><label>Company</label><input type="text" placeholder="Company name"></div>
+            <div class="f-group"><label>Email</label><input type="email" placeholder="you@company.com" required></div>
+            <div class="f-group"><label>Phone</label><input type="tel" placeholder="+1 234 567 890"></div>
+            <div class="f-group full"><label>Subject</label>
+              <select><option value="" disabled selected>What can we help with?</option>
+                <option>Product Development</option><option>Bulk Manufacturing</option>
+                <option>Sampling</option><option>Pricing &amp; Quote</option><option>Other</option>
+              </select>
+            </div>
+            <div class="f-group full"><label>Message</label>
+              <textarea placeholder="Tell us about your requirements..."></textarea></div>
+          </div>
+          <button type="submit" class="f-submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === OFFICES STRIP === -->
+<section class="offices-strip">
+  <div class="container">
+    <div class="off-grid">
+      <div class="off-item reveal d1"><div class="flag">🇧🇩</div><h4>Bangladesh</h4><p>Mirpur 12, Dhaka</p></div>
+      <div class="off-item reveal d2"><div class="flag">🇵🇱</div><h4>Poland</h4><p>Stalowa Wola</p></div>
+      <div class="off-item reveal d3"><div class="flag">🇦🇪</div><h4>UAE</h4><p>SAIF-Zone, Sharjah</p></div>
+      <div class="off-item reveal d4"><div class="flag">🇨🇳</div><h4>China</h4><p>Guangzhou</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- === FOOTER === -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="f-logo">
+          <svg class="f-logo-icon" viewBox="0 0 100 100" fill="none">
+            <path d="M50 15 C50 15 42 30 30 38 C35 32 44 22 50 15Z" fill="#C9A84C" opacity="0.9"/>
+            <path d="M50 15 C50 15 58 30 70 38 C65 32 56 22 50 15Z" fill="#C9A84C" opacity="0.9"/>
+            <path d="M50 12 C50 12 35 28 20 42 C28 35 40 22 50 12Z" fill="#C9A84C" opacity="0.6"/>
+            <path d="M50 12 C50 12 65 28 80 42 C72 35 60 22 50 12Z" fill="#C9A84C" opacity="0.6"/>
+            <circle cx="50" cy="62" r="22" stroke="#C9A84C" stroke-width="1.5" fill="none" opacity="0.4"/>
+            <line x1="50" y1="75" x2="50" y2="48" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+            <polyline points="42,56 50,47 58,56" stroke="#C9A84C" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="f-logo-name">JAR<span>A</span></div>
+        </div>
+        <div class="f-div"></div>
+        <p>Your trusted clothing &amp; accessories manufacturers network. Global Reach. Exceptional Sourcing.</p>
+        <div class="socials">
+          <a href="#" class="soc">in</a><a href="#" class="soc">f</a>
+          <a href="#" class="soc">W</a><a href="#" class="soc">ig</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul><li><a href="#about">About Us</a></li><li><a href="#production">Production</a></li>
+          <li><a href="#quality">Quality</a></li><li><a href="#products">Products</a></li>
+          <li><a href="#contact">Contact</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul><li><a href="#production">Fabric Sourcing</a></li><li><a href="#production">Tech Pack</a></li>
+          <li><a href="#production">Sampling</a></li><li><a href="#production">Manufacturing</a></li>
+          <li><a href="#production">Quality Control</a></li><li><a href="#production">Shipping</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div class="fc"><span class="fci">📍</span><p>Mirpur 12, Dhaka<br>Bangladesh</p></div>
+        <div class="fc"><span class="fci">📧</span><p>info@jara-apparelsourcingbd.com</p></div>
+        <div class="fc"><span class="fci">📞</span><p>+880 1XXX-XXXXXX</p></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 JARA Apparel Sourcing Ltd. All rights reserved.</div>
+      <div class="footer-legal"><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  /* Nav scroll */
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>50),{passive:true});
+
+  /* Mobile nav */
+  const hb=document.getElementById('hamburger'),mn=document.getElementById('mobNav');
+  hb.addEventListener('click',()=>{
+    const o=hb.classList.toggle('open');hb.setAttribute('aria-expanded',o);
+    mn.classList.toggle('open',o);document.body.style.overflow=o?'hidden':'';
+  });
+  window.closeNav=function(){hb.classList.remove('open');hb.setAttribute('aria-expanded','false');
+    mn.classList.remove('open');document.body.style.overflow=''};
+
+  /* Hero slider */
+  const slides=document.querySelectorAll('.hero-slide'),dots=document.querySelectorAll('.hero-dot');
+  let cur=0,auto;
+  function go(i){slides[cur].classList.remove('active');dots[cur].classList.remove('active');
+    cur=i;slides[cur].classList.add('active');dots[cur].classList.add('active')}
+  function next(){go((cur+1)%slides.length)}
+  function startA(){auto=setInterval(next,5000)}function resetA(){clearInterval(auto);startA()}
+  dots.forEach(d=>d.addEventListener('click',()=>{go(+d.dataset.s);resetA()}));
+  startA();
+
+  /* Reveal */
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}});
+  },{threshold:0.1,rootMargin:'0px 0px -20px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+  /* Smooth scroll */
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));
+      if(t){e.preventDefault();scrollTo({top:t.getBoundingClientRect().top+scrollY-70,behavior:'smooth'})}});
+  });
+
+  /* Form */
+  const frm=document.querySelector('.contact-form form');
+  if(frm)frm.addEventListener('submit',e=>{e.preventDefault();
+    const b=frm.querySelector('.f-submit');
+    b.textContent='\u2713 Sent successfully!';b.style.background='#2d6a4f';
+    setTimeout(()=>{b.textContent='Send Message';b.style.background=''},3000)});
+})();
+</script>
+</body>
+</html>
