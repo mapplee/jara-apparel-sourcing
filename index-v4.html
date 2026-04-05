@@ -31,15 +31,24 @@
 /* === RESET === */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;font-size:16px}
-body{font-family:var(--sans);color:var(--text);background:var(--white);overflow-x:hidden}
+body{font-family:var(--sans);color:var(--text);background:var(--white);overflow-x:hidden;cursor:none}
 img{max-width:100%;display:block}
-a{text-decoration:none;color:inherit}
-button{cursor:pointer;border:none;outline:none;font-family:var(--sans)}
+a{text-decoration:none;color:inherit;cursor:none}
+button{cursor:none;border:none;outline:none;font-family:var(--sans)}
 ul{list-style:none}
 ::selection{background:var(--maroon);color:var(--white)}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:var(--cream)}
 ::-webkit-scrollbar-thumb{background:var(--maroon);border-radius:2px}
+
+/* === CURSOR === */
+.cursor-needle{position:fixed;width:28px;height:28px;pointer-events:none;z-index:99999;
+  transform:translate(-50%,-50%) rotate(-45deg);transition:transform 0.08s linear}
+.cursor-dot{position:fixed;width:6px;height:6px;background:var(--maroon);border-radius:50%;
+  pointer-events:none;z-index:99998;transform:translate(-50%,-50%);
+  transition:width 0.2s,height 0.2s,background 0.2s}
+.cursor-dot.hover{width:40px;height:40px;background:rgba(122,25,48,0.08);border:1px solid var(--maroon)}
+#threadCanvas,#cottonCanvas{position:fixed;inset:0;pointer-events:none;z-index:99997}
 
 /* === UTILITY === */
 .container{max-width:1200px;margin:0 auto;padding:0 2rem}
@@ -305,20 +314,38 @@ ul{list-style:none}
   .quality-banner{height:320px}
 }
 @media(max-width:768px){
+  body{cursor:auto}
+  body *{cursor:auto}
+  .cursor-needle,.cursor-dot,#threadCanvas,#cottonCanvas{display:none!important}
   .nav-links,.nav-cta-btn{display:none}
   .hamburger{display:flex}
   .mob-nav{display:flex}
   .nav-inner{height:60px}
   .container{padding:0 1.2rem}
-  .hero-title{font-size:clamp(1.5rem,7vw,2.2rem)}
-  .one-step,.vision,.projects,.contact,.e2e{padding:4rem 0}
+  .hero{height:85vh}
+  .hero-title{font-size:clamp(1.5rem,6.5vw,2.2rem)}
+  .hero-sub{font-size:0.85rem}
+  .hero-btn{padding:0.7rem 1.6rem;font-size:0.65rem}
+  .one-step,.vision,.projects,.contact,.e2e{padding:3.5rem 0}
+  .one-step h2{font-size:1.3rem}
+  .brand-grid{grid-template-columns:1fr}
+  .brand-img{height:280px}
   .brand-text{padding:2.5rem 1.5rem}
+  .brand-text h2{font-size:1.2rem}
   .e2e-grid{grid-template-columns:1fr}
-  .e2e-card{border-right:none;border-bottom:1px solid var(--border)}
+  .e2e-card{border-right:none;border-bottom:1px solid var(--border);padding:2rem 1.5rem}
   .e2e-card:last-child{border-bottom:none}
+  .quality-banner{height:280px}
+  .quality-banner-content h2{font-size:1.3rem}
+  .quality-banner-content p{font-size:0.82rem}
+  .vision-quote{font-size:1rem}
   .proj-grid{grid-template-columns:1fr}
+  .proj-img{aspect-ratio:16/9}
+  .contact-grid{grid-template-columns:1fr;gap:2.5rem}
+  .contact-left h2{font-size:1.3rem}
   .f-grid{grid-template-columns:1fr}
   .contact-form{padding:1.8rem}
+  .off-grid{grid-template-columns:1fr 1fr}
   .footer-grid{grid-template-columns:1fr;gap:2rem}
   .footer-bottom{flex-direction:column;text-align:center}
   .offices-strip{padding:3rem 0}
@@ -327,12 +354,28 @@ ul{list-style:none}
   .values-grid{grid-template-columns:1fr}
   .off-grid{grid-template-columns:1fr}
   .hero-title{font-size:1.4rem}
+  .hero{height:80vh}
   .nav-logo-icon{width:28px;height:28px}
   .nav-logo-text .nm{font-size:1rem}
+  .nav-logo-text .ns{display:none}
+  .brand-img{height:220px}
+  .quality-banner{height:240px}
 }
 </style>
 </head>
 <body>
+
+<!-- Cursor -->
+<div class="cursor-needle" id="cursorNeedle" aria-hidden="true">
+  <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="6" y1="34" x2="30" y2="10" stroke="#7A1930" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="30" y1="10" x2="35" y2="5" stroke="#96243d" stroke-width="1.2" stroke-linecap="round"/>
+    <ellipse cx="8" cy="32" rx="2.5" ry="3.5" stroke="#7A1930" stroke-width="1" fill="none" transform="rotate(-45 8 32)"/>
+  </svg>
+</div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<canvas id="threadCanvas" aria-hidden="true"></canvas>
+<canvas id="cottonCanvas" aria-hidden="true"></canvas>
 
 <!-- Mobile nav -->
 <nav class="mob-nav" id="mobNav">
@@ -385,16 +428,16 @@ ul{list-style:none}
 <section class="hero" id="home">
   <div id="heroSlider">
     <div class="hero-slide active">
-      <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=1600&q=80" alt="Garment manufacturing">
+      <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=1600&q=80" alt="Cotton thread spools">
     </div>
     <div class="hero-slide">
-      <img src="https://images.unsplash.com/photo-1558171813-4c088753af8f?w=1600&q=80" alt="Textile production">
+      <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1600&q=80" alt="Sewing machine close-up">
     </div>
     <div class="hero-slide">
-      <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=1600&q=80" alt="Clothing rack">
+      <img src="https://images.unsplash.com/photo-1558171813-4c088753af8f?w=1600&q=80" alt="Garment factory production line">
     </div>
     <div class="hero-slide">
-      <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1600&q=80" alt="Fashion design">
+      <img src="https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?w=1600&q=80" alt="Fabric textile rolls">
     </div>
   </div>
   <div class="hero-content">
@@ -424,7 +467,7 @@ ul{list-style:none}
 <section class="brand">
   <div class="brand-grid">
     <div class="brand-img reveal">
-      <img src="https://images.unsplash.com/photo-1558171813-4c088753af8f?w=900&q=80" alt="Garment factory floor" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1605289355680-75fb41239154?w=900&q=80" alt="Cotton fabric material" loading="lazy">
     </div>
     <div class="brand-text reveal">
       <div class="label">Your Brand is Our Priority</div>
@@ -494,7 +537,7 @@ ul{list-style:none}
 
 <!-- === QUALITY BANNER === -->
 <section class="quality-banner" id="quality">
-  <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1600&q=80" alt="Quality inspection" loading="lazy">
+  <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1600&q=80" alt="Sewing quality control" loading="lazy">
   <div class="quality-banner-content reveal">
     <div class="qb-line" style="margin-bottom:1.5rem"></div>
     <h2>100% Quality Guarantee</h2>
@@ -558,7 +601,7 @@ ul{list-style:none}
     <div class="proj-grid">
       <div class="proj-card reveal d1">
         <div class="proj-img">
-          <img src="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=800&q=80" alt="Women's apparel" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=800&q=80" alt="Women's apparel on rack" loading="lazy">
         </div>
         <div class="proj-info">
           <span>Collection</span>
@@ -567,7 +610,7 @@ ul{list-style:none}
       </div>
       <div class="proj-card reveal d2">
         <div class="proj-img">
-          <img src="https://images.unsplash.com/photo-1434389677669-e08b4cda3a77?w=800&q=80" alt="Knitwear" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=800&q=80" alt="Knitwear sweaters" loading="lazy">
         </div>
         <div class="proj-info">
           <span>Collection</span>
@@ -576,7 +619,7 @@ ul{list-style:none}
       </div>
       <div class="proj-card reveal d3">
         <div class="proj-img">
-          <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=800&q=80" alt="Toddler clothing" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&q=80" alt="Children's clothing" loading="lazy">
         </div>
         <div class="proj-info">
           <span>Collection</span>
@@ -701,11 +744,93 @@ ul{list-style:none}
 (function(){
   'use strict';
 
-  /* Nav scroll */
+  /* ---- SEWING NEEDLE CURSOR ---- */
+  const needle=document.getElementById('cursorNeedle'),dot=document.getElementById('cursorDot');
+  let mx=0,my=0,nx=0,ny=0,dx=0,dy=0,pmx=0,pmy=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+  function aCursor(){
+    nx+=(mx-nx)*0.15;ny+=(my-ny)*0.15;dx+=(mx-dx)*0.35;dy+=(my-dy)*0.35;
+    const dfx=mx-pmx,dfy=my-pmy;
+    let ang=-45;
+    if(Math.abs(dfx)>0.5||Math.abs(dfy)>0.5)ang=Math.atan2(dfy,dfx)*(180/Math.PI)-45;
+    pmx=mx;pmy=my;
+    if(needle){needle.style.left=nx+'px';needle.style.top=ny+'px';
+      needle.style.transform=`translate(-50%,-50%) rotate(${ang}deg)`}
+    if(dot){dot.style.left=dx+'px';dot.style.top=dy+'px'}
+    requestAnimationFrame(aCursor);
+  }
+  aCursor();
+  document.querySelectorAll('a,button,.e2e-card,.val-card,.proj-card,.off-item,input,textarea,select').forEach(el=>{
+    el.addEventListener('mouseenter',()=>dot&&dot.classList.add('hover'));
+    el.addEventListener('mouseleave',()=>dot&&dot.classList.remove('hover'));
+  });
+
+  /* ---- THREAD TRAIL ---- */
+  const tc=document.getElementById('threadCanvas');
+  if(tc){
+    const tCtx=tc.getContext('2d');let trail=[];const maxT=28;
+    function rT(){tc.width=innerWidth;tc.height=innerHeight}rT();
+    addEventListener('resize',rT);
+    function dT(){
+      tCtx.clearRect(0,0,tc.width,tc.height);
+      trail.push({x:mx,y:my});if(trail.length>maxT)trail.shift();
+      if(trail.length>2){
+        tCtx.beginPath();tCtx.moveTo(trail[0].x,trail[0].y);
+        for(let i=1;i<trail.length-1;i++){
+          const xc=(trail[i].x+trail[i+1].x)/2,yc=(trail[i].y+trail[i+1].y)/2;
+          tCtx.quadraticCurveTo(trail[i].x,trail[i].y,xc,yc)}
+        const g=tCtx.createLinearGradient(trail[0].x,trail[0].y,trail[trail.length-1].x,trail[trail.length-1].y);
+        g.addColorStop(0,'rgba(122,25,48,0)');g.addColorStop(0.3,'rgba(122,25,48,0.15)');
+        g.addColorStop(1,'rgba(122,25,48,0.35)');
+        tCtx.strokeStyle=g;tCtx.lineWidth=1;tCtx.lineCap='round';tCtx.lineJoin='round';tCtx.stroke();
+        for(let i=0;i<trail.length;i+=4){
+          const p=trail[i],a=((i/trail.length)*0.35).toFixed(2);
+          tCtx.save();tCtx.translate(p.x,p.y);
+          if(i>0){const pr=trail[i-1];tCtx.rotate(Math.atan2(p.y-pr.y,p.x-pr.x)+Math.PI/2)}
+          tCtx.beginPath();tCtx.moveTo(-3,0);tCtx.lineTo(3,0);
+          tCtx.strokeStyle=`rgba(122,25,48,${a})`;tCtx.lineWidth=0.6;tCtx.stroke();tCtx.restore();
+        }
+      }
+      requestAnimationFrame(dT);
+    }dT();
+  }
+
+  /* ---- COTTON PARTICLES ---- */
+  const cc=document.getElementById('cottonCanvas');
+  if(cc){
+    const cCtx=cc.getContext('2d'),particles=[];let lastS=0;
+    function rC(){cc.width=innerWidth;cc.height=innerHeight}rC();
+    addEventListener('resize',rC);
+    document.addEventListener('mousemove',e=>{
+      const now=Date.now();
+      if(now-lastS>130&&particles.length<25){
+        lastS=now;
+        particles.push({x:e.clientX+(Math.random()-.5)*20,y:e.clientY+(Math.random()-.5)*20,
+          sz:Math.random()*3+1.5,vx:(Math.random()-.5)*0.35,vy:Math.random()*0.2+0.12,
+          op:0.45+Math.random()*0.25,rot:Math.random()*Math.PI*2,rs:(Math.random()-.5)*0.02,life:1});
+      }
+    });
+    function dC(){
+      cCtx.clearRect(0,0,cc.width,cc.height);
+      for(let i=particles.length-1;i>=0;i--){
+        const p=particles[i];p.x+=p.vx;p.y+=p.vy;p.rot+=p.rs;p.life-=0.008;p.op=p.life*0.4;
+        if(p.life<=0){particles.splice(i,1);continue}
+        cCtx.save();cCtx.translate(p.x,p.y);cCtx.rotate(p.rot);cCtx.globalAlpha=p.op;
+        cCtx.beginPath();cCtx.ellipse(0,0,p.sz,p.sz*0.45,0,0,Math.PI*2);
+        cCtx.fillStyle='#EDE7DC';cCtx.shadowColor='rgba(237,231,220,0.3)';cCtx.shadowBlur=3;cCtx.fill();
+        cCtx.beginPath();cCtx.moveTo(-p.sz*0.6,0);cCtx.lineTo(p.sz*0.6,0);
+        cCtx.strokeStyle='rgba(237,231,220,0.2)';cCtx.lineWidth=0.4;cCtx.stroke();
+        cCtx.restore();
+      }
+      requestAnimationFrame(dC);
+    }dC();
+  }
+
+  /* ---- NAV SCROLL ---- */
   const nav=document.getElementById('nav');
   addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>50),{passive:true});
 
-  /* Mobile nav */
+  /* ---- MOBILE NAV ---- */
   const hb=document.getElementById('hamburger'),mn=document.getElementById('mobNav');
   hb.addEventListener('click',()=>{
     const o=hb.classList.toggle('open');hb.setAttribute('aria-expanded',o);
@@ -714,29 +839,29 @@ ul{list-style:none}
   window.closeNav=function(){hb.classList.remove('open');hb.setAttribute('aria-expanded','false');
     mn.classList.remove('open');document.body.style.overflow=''};
 
-  /* Hero slider */
+  /* ---- HERO SLIDER ---- */
   const slides=document.querySelectorAll('.hero-slide'),dots=document.querySelectorAll('.hero-dot');
-  let cur=0,auto;
+  let cur=0,autoS;
   function go(i){slides[cur].classList.remove('active');dots[cur].classList.remove('active');
     cur=i;slides[cur].classList.add('active');dots[cur].classList.add('active')}
   function next(){go((cur+1)%slides.length)}
-  function startA(){auto=setInterval(next,5000)}function resetA(){clearInterval(auto);startA()}
+  function startA(){autoS=setInterval(next,5000)}function resetA(){clearInterval(autoS);startA()}
   dots.forEach(d=>d.addEventListener('click',()=>{go(+d.dataset.s);resetA()}));
   startA();
 
-  /* Reveal */
+  /* ---- REVEAL ---- */
   const obs=new IntersectionObserver(entries=>{
     entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}});
   },{threshold:0.1,rootMargin:'0px 0px -20px 0px'});
   document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-  /* Smooth scroll */
+  /* ---- SMOOTH SCROLL ---- */
   document.querySelectorAll('a[href^="#"]').forEach(a=>{
     a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));
       if(t){e.preventDefault();scrollTo({top:t.getBoundingClientRect().top+scrollY-70,behavior:'smooth'})}});
   });
 
-  /* Form */
+  /* ---- FORM ---- */
   const frm=document.querySelector('.contact-form form');
   if(frm)frm.addEventListener('submit',e=>{e.preventDefault();
     const b=frm.querySelector('.f-submit');
