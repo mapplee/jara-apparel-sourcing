@@ -62,7 +62,8 @@ ul{list-style:none}
 .container{max-width:1280px;margin:0 auto;padding:0 2rem}
 .section-tag{display:inline-flex;align-items:center;gap:0.6rem;font-family:var(--body);
   font-size:0.68rem;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
-.section-tag::before{content:'';display:block;width:2rem;height:1px;background:var(--gold)}
+.section-tag::before{content:'';display:block;width:2rem;height:1px;background:currentColor;flex-shrink:0}
+.section-tag.centered::after{content:'';display:block;width:2rem;height:1px;background:currentColor;flex-shrink:0}
 .reveal{opacity:0;transform:translateY(45px);transition:opacity 0.9s ease,transform 0.9s ease}
 .reveal.vis{opacity:1;transform:translateY(0)}
 .rev-l{opacity:0;transform:translateX(-45px);transition:opacity 0.9s ease,transform 0.9s ease}
@@ -536,7 +537,7 @@ ul{list-style:none}
 <section class="fullpkg" id="production">
   <div class="container">
     <div class="section-header reveal">
-      <div class="section-tag" style="color:var(--maroon)"><span style="display:inline-block;width:2rem;height:1px;background:var(--maroon)"></span>&nbsp;&nbsp;End to End Solutions</div>
+      <div class="section-tag" style="color:var(--maroon)">End to End Solutions</div>
       <h2 class="section-title">Full Package <em>Clothing Manufacturing</em></h2>
       <p class="section-desc">We help you take care of everything to bring your vision to life. From concept to delivery, every step managed under one roof.</p>
     </div>
@@ -617,7 +618,7 @@ ul{list-style:none}
 <section class="vision" id="sustainability">
   <div class="container">
     <div class="section-header reveal">
-      <div class="section-tag" style="color:var(--maroon);justify-content:center"><span style="display:inline-block;width:2rem;height:1px;background:var(--maroon)"></span>&nbsp;&nbsp;Our Vision &amp; Values</div>
+      <div class="section-tag centered" style="color:var(--maroon);justify-content:center">Our Vision &amp; Values</div>
       <h2 class="section-title" style="text-align:center">What <em>Drives Us</em></h2>
     </div>
     <div class="vision-statement reveal">
@@ -662,11 +663,7 @@ ul{list-style:none}
 <section class="projects" id="projects">
   <div class="container">
     <div class="section-header reveal">
-      <div class="section-tag" style="justify-content:center">
-        <span style="display:inline-block;width:2rem;height:1px;background:var(--gold)"></span>
-        &nbsp;&nbsp;Latest Projects&nbsp;&nbsp;
-        <span style="display:inline-block;width:2rem;height:1px;background:var(--gold)"></span>
-      </div>
+      <div class="section-tag centered" style="justify-content:center">Latest Projects</div>
       <h2 class="section-title" style="text-align:center;color:var(--white)">Our <em style="color:var(--gold)">Products</em></h2>
     </div>
     <div class="projects-grid">
@@ -683,7 +680,7 @@ ul{list-style:none}
       </div>
       <div class="project-card reveal d2">
         <div class="project-inner">
-          <img src="https://images.unsplash.com/photo-1434389677669-e08b4cda3a77?w=800&q=80" alt="Knitwear" loading="lazy">
+          <img src="knit-wear.jpeg" alt="Knitwear" loading="lazy">
           <div class="project-overlay"></div>
           <div class="project-arrow">&nearr;</div>
           <div class="project-content">
@@ -717,7 +714,7 @@ ul{list-style:none}
   <div class="container">
     <div class="contact-grid">
       <div class="contact-info rev-l">
-        <div class="section-tag" style="color:var(--maroon)"><span style="display:inline-block;width:2rem;height:1px;background:var(--maroon)"></span>&nbsp;&nbsp;Get In Touch</div>
+        <div class="section-tag" style="color:var(--maroon)">Get In Touch</div>
         <h2 class="section-title">We're here<br>to <em>help</em></h2>
         <p>We welcome your inquiry via phone, email, or contact form. We will reply as soon as possible. Your brand is our primary priority.</p>
         <div class="contact-details">
@@ -773,11 +770,7 @@ ul{list-style:none}
 <section class="offices">
   <div class="container">
     <div class="section-header reveal">
-      <div class="section-tag" style="justify-content:center">
-        <span style="display:inline-block;width:2rem;height:1px;background:var(--gold)"></span>
-        &nbsp;&nbsp;Global Presence&nbsp;&nbsp;
-        <span style="display:inline-block;width:2rem;height:1px;background:var(--gold)"></span>
-      </div>
+      <div class="section-tag centered" style="justify-content:center">Global Presence</div>
       <h2 class="section-title" style="text-align:center;color:var(--white)">Our <em style="color:var(--gold)">Offices</em></h2>
     </div>
     <div class="offices-grid">
@@ -791,7 +784,7 @@ ul{list-style:none}
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="logo.png" alt="JARA" style="height:55px;width:auto;margin-bottom:0.5rem;filter:brightness(1.2)">
+        <img src="logo.png" alt="JARA" style="height:55px;width:auto;align-self:flex-start;margin-bottom:0.5rem;filter:brightness(1.2)">
         <div class="gold-div"></div>
         <p>Your trusted clothing &amp; accessories manufacturers network. Global Reach. Exceptional Sourcing. Full package garment solutions from concept to delivery.</p>
         <div class="social-links">
