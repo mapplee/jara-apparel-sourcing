@@ -787,6 +787,10 @@ ul{list-style:none}
               <textarea id="msg" placeholder="Tell us about your requirements, quantities, timelines..."></textarea></div>
           </div>
           <button type="submit" class="btn-submit"><span>Send Message</span></button>
+          <p style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.9rem;text-align:center">
+            Send opens Gmail in a new tab. Prefer your own mail app?
+            <a href="#" class="mail-fallback" style="color:var(--gold);text-decoration:underline">Use mailto instead</a>
+          </p>
         </form>
       </div>
     </div>
@@ -997,32 +1001,53 @@ ul{list-style:none}
 
   /* ---- FORM ---- */
   const frm=document.querySelector('.contact-form form');
-  if(frm)frm.addEventListener('submit',e=>{
-    e.preventDefault();
-    const v=id=>{const el=document.getElementById(id);return el?el.value.trim():''};
-    const fn=v('fn'),co=v('co'),em=v('em'),ph=v('ph'),sb=v('sb'),msg=v('msg');
-    if(!fn||!em){
-      const b=frm.querySelector('.btn-submit span');
-      b.textContent='Please enter your name & email';
-      setTimeout(()=>b.textContent='Send Message',3000);
-      return;
-    }
-    const subject=encodeURIComponent('Inquiry: '+(sb||'General')+' \u2014 '+fn);
-    const body=encodeURIComponent(
-      'Name: '+fn+'\n'+
+  const TO='info@jara-apparelsourcingbd.com';
+  const CC='omor@jara-apparelsourcingbd.com,jakaria@jara-apparelsourcingbd.com';
+  function buildBody(fn,co,em,ph,sb,msg){
+    return 'Name: '+fn+'\n'+
       'Company: '+co+'\n'+
       'Email: '+em+'\n'+
       'Phone: '+ph+'\n'+
       'Subject: '+sb+'\n\n'+
       'Message:\n'+msg+'\n\n'+
-      '\u2014\nSent from jara-apparelsourcingbd.com'
-    );
-    const to='info@jara-apparelsourcingbd.com';
-    const cc='omor@jara-apparelsourcingbd.com,jakaria@jara-apparelsourcingbd.com';
-    window.location.href='mailto:'+to+'?cc='+cc+'&subject='+subject+'&body='+body;
+      '\u2014\nSent from jara-apparelsourcingbd.com';
+  }
+  function buildSubject(sb,fn){
+    return 'Inquiry: '+(sb||'General')+' \u2014 '+fn;
+  }
+  if(frm)frm.addEventListener('submit',e=>{
+    e.preventDefault();
+    const v=id=>{const el=document.getElementById(id);return el?el.value.trim():''};
+    const fn=v('fn'),co=v('co'),em=v('em'),ph=v('ph'),sb=v('sb'),msg=v('msg');
     const b=frm.querySelector('.btn-submit span');
-    b.textContent='Opening your email app\u2026';
+    if(!fn||!em){
+      b.textContent='Please enter your name & email';
+      setTimeout(()=>b.textContent='Send Message',3000);
+      return;
+    }
+    const subject=encodeURIComponent(buildSubject(sb,fn));
+    const body=encodeURIComponent(buildBody(fn,co,em,ph,sb,msg));
+    const gmailUrl='https://mail.google.com/mail/?view=cm&fs=1'+
+      '&to='+encodeURIComponent(TO)+
+      '&cc='+encodeURIComponent(CC)+
+      '&su='+subject+
+      '&body='+body;
+    const win=window.open(gmailUrl,'_blank');
+    if(!win){
+      window.location.href='mailto:'+TO+'?cc='+CC+'&subject='+subject+'&body='+body;
+    }
+    b.textContent='\u2713 Opening Gmail in new tab\u2026';
     setTimeout(()=>b.textContent='Send Message',4000);
+  });
+  /* fallback link for users who prefer their default mail app */
+  const fallback=document.querySelector('.mail-fallback');
+  if(fallback)fallback.addEventListener('click',e=>{
+    e.preventDefault();
+    const v=id=>{const el=document.getElementById(id);return el?el.value.trim():''};
+    const fn=v('fn')||'Website Visitor',co=v('co'),em=v('em'),ph=v('ph'),sb=v('sb'),msg=v('msg');
+    const subject=encodeURIComponent(buildSubject(sb,fn));
+    const body=encodeURIComponent(buildBody(fn,co,em,ph,sb,msg));
+    window.location.href='mailto:'+TO+'?cc='+CC+'&subject='+subject+'&body='+body;
   });
 
   /* ---- PARALLAX ---- */
