@@ -770,7 +770,7 @@ ul{list-style:none}
       </div>
       <div class="contact-form rev-r">
         <div class="form-title">Send an Inquiry</div>
-        <form action="#" method="POST" novalidate>
+        <form action="mailto:info@jara-apparelsourcingbd.com?cc=omor@jara-apparelsourcingbd.com,jakaria@jara-apparelsourcingbd.com" method="POST" enctype="text/plain" novalidate>
           <div class="form-grid">
             <div class="form-group"><label for="fn">Full Name</label><input type="text" id="fn" placeholder="Your name" required></div>
             <div class="form-group"><label for="co">Company</label><input type="text" id="co" placeholder="Company name"></div>
@@ -997,10 +997,33 @@ ul{list-style:none}
 
   /* ---- FORM ---- */
   const frm=document.querySelector('.contact-form form');
-  if(frm)frm.addEventListener('submit',e=>{e.preventDefault();
+  if(frm)frm.addEventListener('submit',e=>{
+    e.preventDefault();
+    const v=id=>{const el=document.getElementById(id);return el?el.value.trim():''};
+    const fn=v('fn'),co=v('co'),em=v('em'),ph=v('ph'),sb=v('sb'),msg=v('msg');
+    if(!fn||!em){
+      const b=frm.querySelector('.btn-submit span');
+      b.textContent='Please enter your name & email';
+      setTimeout(()=>b.textContent='Send Message',3000);
+      return;
+    }
+    const subject=encodeURIComponent('Inquiry: '+(sb||'General')+' \u2014 '+fn);
+    const body=encodeURIComponent(
+      'Name: '+fn+'\n'+
+      'Company: '+co+'\n'+
+      'Email: '+em+'\n'+
+      'Phone: '+ph+'\n'+
+      'Subject: '+sb+'\n\n'+
+      'Message:\n'+msg+'\n\n'+
+      '\u2014\nSent from jara-apparelsourcingbd.com'
+    );
+    const to='info@jara-apparelsourcingbd.com';
+    const cc='omor@jara-apparelsourcingbd.com,jakaria@jara-apparelsourcingbd.com';
+    window.location.href='mailto:'+to+'?cc='+cc+'&subject='+subject+'&body='+body;
     const b=frm.querySelector('.btn-submit span');
-    b.textContent='\u2713 Sent \u2014 We\'ll get back to you!';
-    setTimeout(()=>b.textContent='Send Message',4000)});
+    b.textContent='Opening your email app\u2026';
+    setTimeout(()=>b.textContent='Send Message',4000);
+  });
 
   /* ---- PARALLAX ---- */
   const hC=document.querySelector('.hero-content');
