@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JARA Apparel Sourcing — Website Samples</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:#0f0a14;color:#fff;min-height:100vh;
+  display:flex;align-items:center;justify-content:center;padding:2rem}
+.wrap{max-width:900px;width:100%;text-align:center}
+.logo{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;margin-bottom:0.3rem;letter-spacing:0.08em}
+.logo span{color:#C9A84C}
+.sub{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(201,168,76,0.6);margin-bottom:0.5rem}
+.tagline{font-size:0.9rem;color:rgba(255,255,255,0.4);margin-bottom:3rem}
+h2{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:600;margin-bottom:2rem;color:rgba(255,255,255,0.7)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:3rem}
+.card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:2.5rem 1.5rem;
+  text-decoration:none;color:#fff;transition:all 0.4s ease;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:#C9A84C;transform:scaleX(0);transition:transform 0.4s ease;transform-origin:left}
+.card:hover{border-color:rgba(201,168,76,0.3);transform:translateY(-6px);
+  box-shadow:0 20px 40px rgba(201,168,76,0.08)}
+.card:hover::before{transform:scaleX(1)}
+.card .ver{font-size:0.6rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;
+  color:#C9A84C;margin-bottom:1rem}
+.card h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;margin-bottom:0.8rem}
+.card p{font-size:0.78rem;line-height:1.6;color:rgba(255,255,255,0.4)}
+.card .colors{display:flex;gap:0.4rem;justify-content:center;margin-top:1.2rem}
+.card .dot{width:16px;height:16px;border-radius:50%;border:1px solid rgba(255,255,255,0.15)}
+.note{font-size:0.75rem;color:rgba(255,255,255,0.25);margin-top:1rem}
+@media(max-width:700px){
+  .cards{grid-template-columns:1fr}
+  .logo{font-size:1.8rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo">JAR<span>A</span></div>
+  <div class="sub">Apparel Sourcing Ltd</div>
+  <p class="tagline">Website Design Samples for Client Review</p>
+
+  <h2>Choose a Version to Preview</h2>
+
+  <div class="cards">
+    <a href="index-v2.html" class="card">
+      <div class="ver">Version 1</div>
+      <h3>Navy + Gold + Sewing Effects</h3>
+      <p>Deep navy palette with gold accents. Needle cursor, thread trail &amp; cotton particle mouse effects.</p>
+      <div class="colors">
+        <div class="dot" style="background:#0D1B2A"></div>
+        <div class="dot" style="background:#C9A84C"></div>
+        <div class="dot" style="background:#F8F4EE"></div>
+      </div>
+    </a>
+
+    <a href="index-v3.html" class="card">
+      <div class="ver">Version 2</div>
+      <h3>Maroon + Brand Colors</h3>
+      <p>Client brand colors. Maroon &amp; gold palette with logo icon and sewing mouse effects.</p>
+      <div class="colors">
+        <div class="dot" style="background:#7A1930"></div>
+        <div class="dot" style="background:#C9A84C"></div>
+        <div class="dot" style="background:#FAF6F0"></div>
+      </div>
+    </a>
+
+    <a href="index-v4.html" class="card">
+      <div class="ver">Version 3 — Minimalist</div>
+      <h3>Clean &amp; Light</h3>
+      <p>Minimalist, photography-heavy. White backgrounds, maroon accents. Closest to Cotton Rose style but elevated.</p>
+      <div class="colors">
+        <div class="dot" style="background:#FFFFFF;border-color:rgba(0,0,0,0.15)"></div>
+        <div class="dot" style="background:#7A1930"></div>
+        <div class="dot" style="background:#F7F3ED"></div>
+      </div>
+    </a>
+  </div>
+
+  <p class="note">Best viewed on desktop for mouse effects. Mobile responsive on all versions.</p>
+</div>
+</body>
+</html>
